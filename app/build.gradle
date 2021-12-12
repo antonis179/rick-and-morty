@@ -1,0 +1,65 @@
+apply plugin: module_plugins.application
+apply plugin: module_plugins.kotlin
+apply plugin: module_plugins.kapt
+apply plugin: module_plugins.kotlinParcelize
+apply plugin: module_plugins.hilt
+
+apply from: "$project.rootDir/config/config.gradle"
+
+android {
+	namespace 'com.amoustakos.rickandmorty'
+
+	defaultConfig {
+		applicationId "com.amoustakos.rickandmorty"
+	}
+
+	flavorDimensions "stores"
+
+	productFlavors {
+		play {
+			dimension "stores"
+		}
+	}
+}
+
+hilt {
+	enableAggregatingTask = true
+}
+
+kapt {
+	useBuildCache true
+	correctErrorTypes true
+}
+
+dependencies {
+//	implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+	implementation libs_support.values()
+
+	//Compose
+	libs_bom.values().every { bom -> implementation platform(bom) }
+	implementation libs_compose.values()
+
+	implementation libs_logging.values()
+	implementation libs_image.values()
+	implementation libs_kotlin.values()
+
+	//Di
+	implementation libs_di.values()
+
+	//db
+//	implementation libs_local_io.values()
+
+	//networking
+	implementation libs_networking.values()
+
+	//Processors
+	kapt annotation_processors.values()
+
+	//Navigation
+	implementation libs_navigation.values()
+
+//	testImplementation 'junit:junit:4.13.2'
+//	androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+//	androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+//	testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1'
+}

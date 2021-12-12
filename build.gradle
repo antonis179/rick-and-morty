@@ -1,0 +1,16 @@
+buildscript {
+	//Needs to be applied here - buildscript executed first
+	apply from: "$project.rootDir/config/dependencies.gradle"
+
+	repositories repos
+	allprojects { repositories repos }
+
+	dependencies { classpath gradle_plugins.values() }
+}
+
+apply from: "$project.rootDir/config/dependencies.gradle"
+apply plugin: module_plugins.dependencyUpdates
+
+task clean(type: Delete) {
+	delete rootProject.buildDir
+}

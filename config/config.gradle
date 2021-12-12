@@ -1,0 +1,156 @@
+project.ext {
+
+	build_params = [
+			compile_version: 33,
+			min_version    : 21,
+			target_version : 33,
+
+			// https://developer.android.com/jetpack/androidx/releases/compose-compiler
+			compose_compiler : '1.4.7'
+	]
+
+	key_config = [
+			debug_location   : 'debug.key.location',
+			debug_pwd        : 'debug.key.password',
+			debug_alias      : 'debug.key.alias',
+			debug_alias_pwd  : 'debug.key.alias.password',
+
+			release_location : 'release.key.location',
+			release_pwd      : 'release.key.password',
+			release_alias    : 'release.key.alias',
+			release_alias_pwd: 'release.key.alias.password',
+
+			app_version      : 'app.version',
+			app_version_name : 'app.version.name'
+	]
+
+	methods = [
+			getEnv                 : {
+				methods.getProperties("environment.properties", true)
+			},
+
+			getPasswords           : {
+				methods.getProperties("passwords.properties", false)
+			},
+
+			getAttribute           : { Properties props, String key ->
+				String attribute = props.get(key)
+				methods.checkAttribute(attribute, key)
+				attribute
+			},
+
+			checkAttribute         : { String attribute, String key ->
+				if (attribute == null || attribute.size() < 1)
+					throw new GradleException("Missing Attribute $attribute for key $key")
+			},
+
+			getProperties          : { String filename, Boolean fromRoot ->
+				Properties props = new Properties()
+				String secondaryPath = "/_KEYS_/"
+				if (fromRoot) secondaryPath = "/"
+				String path = project.rootDir.path + secondaryPath + filename
+				props.load(new FileInputStream(path))
+				props
+			},
+
+			getStringifiedAttribute: { Properties props, String key ->
+				String attribute = props.get(key)
+				methods.checkAttribute(attribute, key)
+				methods.stringify(attribute)
+			},
+
+			stringify              : { String string ->
+				return "\"" + string + "\""
+			}
+	]
+
+	app = [
+			version    : {
+				def props = methods.getEnv()
+				methods.getAttribute(props, "${key_config.app_version}") as Integer
+			},
+
+			versionName: {
+				def props = methods.getEnv()
+				"${methods.getAttribute(props, "${key_config.app_version_name}")}"
+			}
+	]
+}
+
+android {
+	compileSdk build_params.compile_version
+
+	composeOptions {
+		kotlinCompilerExtensionVersion = "${build_params.compose_compiler}"
+	}
+
+	buildFeatures {
+		viewBinding true
+		compose true
+	}
+
+	defaultConfig {
+		versionCode project.ext.app.version()
+		versionName project.ext.app.versionName()
+
+		minSdk build_params.min_version
+		targetSdk build_params.target_version
+	}
+
+	signingConfigs {
+		def props = project.ext.methods.getPasswords()
+
+		debug {
+			ext.alwaysUpdateBuildId = false
+
+			def loc = project.ext.methods.getAttribute(props, "${project.ext.key_config.debug_location}")
+			def pwd = project.ext.methods.getAttribute(props, "${project.ext.key_config.debug_pwd}")
+			def alias = project.ext.methods.getAttribute(props, "${project.ext.key_config.debug_alias}")
+			def aliasPwd = project.ext.methods.getAttribute(props, "${project.ext.key_config.debug_alias_pwd}")
+
+			storeFile file(loc)
+			storePassword pwd
+			keyAlias alias
+			keyPassword aliasPwd
+		}
+		release {
+			def loc = project.ext.methods.getAttribute(props, "${project.ext.key_config.release_location}")
+			def pwd = project.ext.methods.getAttribute(props, "${project.ext.key_config.release_pwd}")
+			def alias = project.ext.methods.getAttribute(props, "${project.ext.key_config.release_alias}")
+			def aliasPwd = project.ext.methods.getAttribute(props, "${project.ext.key_config.release_alias_pwd}")
+
+			storeFile file(loc)
+			storePassword pwd
+			keyAlias alias
+			keyPassword aliasPwd
+		}
+	}
+
+	buildTypes {
+		debug {
+			debuggable true
+			signingConfig signingConfigs.debug
+		}
+		release {
+			debuggable false
+			minifyEnabled true
+			shrinkResources true
+
+			signingConfig signingConfigs.release
+			proguardFiles getDefaultProguardFile('proguard-android.txt'),
+					"$project.rootDir/config/proguard-rules.pro"
+		}
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_11
+		targetCompatibility JavaVersion.VERSION_11
+	}
+
+	kotlin {
+		jvmToolchain {
+			languageVersion.set(JavaLanguageVersion.of("11"))
+		}
+	}
+
+}
