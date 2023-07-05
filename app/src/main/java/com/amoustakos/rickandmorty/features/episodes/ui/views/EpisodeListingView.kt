@@ -1,6 +1,5 @@
 package com.amoustakos.rickandmorty.features.episodes.ui.views
 
-import android.R
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -29,9 +28,9 @@ import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.amoustakos.rickandmorty.ui.lazy.AnimatorEnter
-import com.amoustakos.rickandmorty.ui.lazy.HasEnterAnimation
-import com.amoustakos.rickandmorty.ui.lazy.SlideInBottomAnimator
+import com.amoustakos.rickandmorty.ui.animation.AnimatorEnter
+import com.amoustakos.rickandmorty.ui.animation.HasEnterAnimation
+import com.amoustakos.rickandmorty.ui.animation.SlideInBottomAnimator
 import com.amoustakos.rickandmorty.ui.lazy.UiView
 import com.amoustakos.rickandmorty.ui.lazy.UiViewData
 import com.amoustakos.rickandmorty.ui.theme.AppTheme
@@ -87,7 +86,7 @@ class EpisodeListingView(
                                 .build(),
                             contentDescription = "",
                             contentScale = ContentScale.Fit,
-                            placeholder = painterResource(id = R.drawable.stat_sys_warning) //TODO
+                            placeholder = painterResource(id = android.R.drawable.stat_sys_warning)
                         )
 
                         Text(
@@ -160,7 +159,7 @@ class EpisodeListingView(
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun previewEpisodeUiViewDark() = AppTheme {
+private fun PreviewEpisodeUiViewDark() = AppTheme {
     EpisodeListingView(SlideInBottomAnimator()) {}.View(
         position = 0, data = episodeUiPreviewViewData()
     )
@@ -168,7 +167,7 @@ private fun previewEpisodeUiViewDark() = AppTheme {
 
 @Preview
 @Composable
-private fun previewEpisodeUiViewLight() = AppTheme {
+private fun PreviewEpisodeUiViewLight() = AppTheme {
     EpisodeListingView(SlideInBottomAnimator()) {}.View(
         position = 0, data = episodeUiPreviewViewData()
     )

@@ -107,7 +107,7 @@ class CharacterDetailsView : UiView {
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun previewCharacterDetailsViewDark() = AppTheme {
+private fun PreviewCharacterDetailsViewDark() = AppTheme {
     CharacterDetailsView().View(
         position = 0, data = characterDetailsViewData()
     )
@@ -115,7 +115,7 @@ private fun previewCharacterDetailsViewDark() = AppTheme {
 
 @Preview
 @Composable
-private fun previewCharacterDetailsViewLight() = AppTheme {
+private fun PreviewCharacterDetailsViewLight() = AppTheme {
     CharacterDetailsView().View(
         position = 0, data = characterDetailsViewData()
     )

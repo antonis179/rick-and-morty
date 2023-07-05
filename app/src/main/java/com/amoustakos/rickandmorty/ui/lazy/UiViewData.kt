@@ -21,7 +21,3 @@ interface UiViewData {
 
 
 interface UiHeaderViewData : UiViewData
-
-interface HasEnterAnimation {
-    var performEnterAnimation: Boolean
-}

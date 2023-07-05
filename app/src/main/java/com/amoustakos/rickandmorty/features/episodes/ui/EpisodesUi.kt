@@ -32,8 +32,8 @@ import com.amoustakos.rickandmorty.features.episodes.ui.views.EpisodeListingView
 import com.amoustakos.rickandmorty.features.episodes.ui.views.EpisodeListingViewData
 import com.amoustakos.rickandmorty.navigation.screens.CharacterDetails
 import com.amoustakos.rickandmorty.ui.UiState
+import com.amoustakos.rickandmorty.ui.animation.SlideInBottomAnimator
 import com.amoustakos.rickandmorty.ui.bars.TitleOnly
-import com.amoustakos.rickandmorty.ui.lazy.SlideInBottomAnimator
 import com.amoustakos.rickandmorty.ui.lazy.UiView
 import com.amoustakos.rickandmorty.ui.lazy.UiViewData
 import com.amoustakos.rickandmorty.ui.loaders.DefaultListLoadingIndicator
@@ -48,8 +48,6 @@ class EpisodesUi @Inject constructor(
     private val navGraph: NavGraph,
     private val enterAnimator: SlideInBottomAnimator
 ) {
-
-    // Todo: Add swipe to refresh
 
     @Composable
     fun View(

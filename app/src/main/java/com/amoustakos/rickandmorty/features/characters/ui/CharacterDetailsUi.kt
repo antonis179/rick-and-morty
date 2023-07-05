@@ -1,4 +1,4 @@
-package com.amoustakos.rickandmorty.features.characters
+package com.amoustakos.rickandmorty.features.characters.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.amoustakos.rickandmorty.NavGraph
 import com.amoustakos.rickandmorty.R
+import com.amoustakos.rickandmorty.features.characters.CharacterDetailsViewModel
 import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterDetailsView
 import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterDetailsViewData
 import com.amoustakos.rickandmorty.ui.UiState
@@ -24,18 +25,12 @@ import com.amoustakos.rickandmorty.ui.lazy.UiViewData
 import com.amoustakos.rickandmorty.ui.loaders.DefaultFullPageLoadingIndicator
 import javax.inject.Inject
 
-class CharacterDetailsUi @Inject constructor(
-    private val navGraph: NavGraph
-) {
+class CharacterDetailsUi @Inject constructor() {
 
-    val characterView = CharacterDetailsView()
+    private val characterView = CharacterDetailsView()
 
     @Composable
-    fun View(
-        nv: NavHostController,
-        state: CharacterDetailsUiState
-    ) {
-
+    fun View(state: CharacterDetailsUiState) {
         if (state.state == UiState.Init) {
             state.fetch()
         }
@@ -54,14 +49,16 @@ class CharacterDetailsUi @Inject constructor(
                     DefaultFullPageLoadingIndicator()
                 }
 
-                UiState.Error -> TODO()
-                UiState.Idle ->  {
+                UiState.Error -> {
+                    //TODO: Error
+                }
+                UiState.Idle -> {
                     val data = state.viewData ?: run {
                         //TODO: Error
                     }
 
                     if (data !is CharacterDetailsViewData) {
-                        //TODO: error
+                        //TODO: Error
                         return@Column
                     }
 
@@ -69,6 +66,7 @@ class CharacterDetailsUi @Inject constructor(
 
                     characterView.View(position = 0, data = data)
                 }
+
                 else -> {
                     TitleOnly(stringResource(id = R.string.title_character))
                         .View(modifier = Modifier.fillMaxWidth())
@@ -91,4 +89,3 @@ class CharacterDetailsUi @Inject constructor(
         fun makeModel(): CharacterDetailsViewModel = hiltViewModel()
     }
 }
-

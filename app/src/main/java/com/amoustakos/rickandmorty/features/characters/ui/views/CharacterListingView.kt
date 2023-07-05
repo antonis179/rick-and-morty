@@ -1,6 +1,5 @@
 package com.amoustakos.rickandmorty.features.characters.ui.views
 
-import android.R
 import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -74,7 +73,7 @@ class CharacterListingView(
                             .build(),
                         contentDescription = "",
                         contentScale = ContentScale.Fit,
-                        placeholder = painterResource(id = R.drawable.stat_sys_warning) //TODO
+                        placeholder = painterResource(id = android.R.drawable.stat_sys_warning)
                     )
 
                     Text(
@@ -146,7 +145,7 @@ class CharacterListingView(
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun previewCharacterListingViewDark() = AppTheme {
+private fun PreviewCharacterListingViewDark() = AppTheme {
     CharacterListingView { }.View(
         position = 0, data = characterListingUiViewData()
     )
@@ -154,7 +153,7 @@ private fun previewCharacterListingViewDark() = AppTheme {
 
 @Preview
 @Composable
-private fun previewCharacterListingViewLight() = AppTheme {
+private fun PreviewCharacterListingViewLight() = AppTheme {
     CharacterListingView { }.View(
         position = 0, data = characterListingUiViewData()
     )

@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.amoustakos.rickandmorty.features.characters.CharacterDetailsUi
+import com.amoustakos.rickandmorty.features.characters.ui.CharacterDetailsUi
 import com.amoustakos.rickandmorty.navigation.Transitions
 import com.google.accompanist.navigation.animation.composable
 
@@ -47,7 +47,7 @@ object CharacterDetails : Screen, Transitions {
             val args = parseArguments(it)
             val vm = CharacterDetailsUi.makeModel()
             vm.setup(args)
-            ui.View(nv, vm.uiState)
+            ui.View(vm.uiState)
         }
     }
 }

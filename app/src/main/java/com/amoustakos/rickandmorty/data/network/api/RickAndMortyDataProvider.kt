@@ -85,8 +85,9 @@ class RickAndMortyDataProvider @Inject constructor(
         return if (cachedItem != null) {
             cachedItem
         } else {
-            val response = api.fetchCharactersById(req.ids.joinToString(",").replace(" ", ""))
-            //TODO fix...
+            val response = api.fetchCharactersById(
+                req.ids.joinToString(",").replace(" ", "")
+            )
             val tempResp = Response.success(ApiCharactersResponse(results = response.body()))
             cache.store(req, tempResp)
             tempResp

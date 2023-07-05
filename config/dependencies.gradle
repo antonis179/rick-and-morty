@@ -75,7 +75,7 @@ project.ext {
 	]
 
 	libs_di = [
-	        hilt                    : "com.google.dagger:hilt-android:${plugin_versions.hilt}"
+	        hilt                   : "com.google.dagger:hilt-android:${plugin_versions.hilt}"
 	]
 
 	libs_mapping = [
@@ -123,9 +123,6 @@ project.ext {
 			nav_graph_compose   : "androidx.navigation:navigation-compose:${plugin_versions.nav_version}",
 			nav_graph_ui        : "androidx.navigation:navigation-ui-ktx:${plugin_versions.nav_version}",
 			nav_hilt_compose    : "androidx.hilt:hilt-navigation-compose:${lib_versions.hilt_nav_version}"
-	]
-
-	libs_local_io = [
 	]
 
 	libs_networking = [

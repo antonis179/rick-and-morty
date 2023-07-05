@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amoustakos.rickandmorty.data.domain.DomainResponse
 import com.amoustakos.rickandmorty.data.domain.models.characters.DomainCharacter
-import com.amoustakos.rickandmorty.features.characters.CharacterDetailsUi.CharacterDetailsUiState
+import com.amoustakos.rickandmorty.features.characters.ui.CharacterDetailsUi.CharacterDetailsUiState
 import com.amoustakos.rickandmorty.features.characters.ui.transformer.CharacterDetailsViewDataTransformer
 import com.amoustakos.rickandmorty.features.characters.usecases.FetchCharacterUseCase
 import com.amoustakos.rickandmorty.navigation.screens.CharacterDetails

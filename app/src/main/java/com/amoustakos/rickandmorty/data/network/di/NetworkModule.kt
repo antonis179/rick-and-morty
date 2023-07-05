@@ -24,7 +24,7 @@ class NetworkModule {
         @DebugFlag isDebug: Boolean
     ) = RetrofitFactory.makeRetrofitEngine(
         RetrofitFactory.makeHttpClient(DefaultNetworkConfigFactory.defaultOkhttpOptions(isDebug)),
-        DefaultNetworkConfigFactory.defaultRetrofitOptions("https://rickandmortyapi.com/api/") //TODO: move to gradle or properties
+        DefaultNetworkConfigFactory.defaultRetrofitOptions("https://rickandmortyapi.com/api/")
     )
 
 

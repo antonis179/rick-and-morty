@@ -7,7 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.amoustakos.rickandmorty.features.characters.CharactersListingUi
+import com.amoustakos.rickandmorty.features.characters.ui.CharactersListingUi
 import com.amoustakos.rickandmorty.navigation.Transitions
 import com.google.accompanist.navigation.animation.composable
 

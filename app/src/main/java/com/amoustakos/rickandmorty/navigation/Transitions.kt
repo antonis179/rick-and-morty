@@ -10,36 +10,32 @@ import androidx.navigation.NavBackStackEntry
 
 interface Transitions {
 
-    companion object {
-        private const val OFFSET_ANIMATION = 1100 //TODO: Use screen size
-    }
-
     fun enterTransition(
         from: String?,
         to: String?
     ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
-        return { slideInHorizontally(initialOffsetX = { OFFSET_ANIMATION }) }
+        return { slideInHorizontally(initialOffsetX = { it*2 }) }
     }
 
     fun exitTransition(
         from: String?,
         to: String?
     ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
-        return { slideOutHorizontally(targetOffsetX = { -OFFSET_ANIMATION }) }
+        return { slideOutHorizontally(targetOffsetX = { -it*2 }) }
     }
 
     fun popEnterTransition(
         from: String?,
         to: String?
     ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
-        return { slideInHorizontally(initialOffsetX = { -OFFSET_ANIMATION }) }
+        return { slideInHorizontally(initialOffsetX = { -it*2 }) }
     }
 
     fun popExitTransition(
         from: String?,
         to: String?
     ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
-        return { slideOutHorizontally(targetOffsetX = { OFFSET_ANIMATION }) }
+        return { slideOutHorizontally(targetOffsetX = { it*2 }) }
     }
 
 
