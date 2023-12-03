@@ -4,7 +4,7 @@ import android.content.res.Configuration
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.animation.with
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,7 +31,7 @@ fun AnimatedCounter(
     style: TextStyle = MaterialTheme.typography.displayLarge.copy(color = MaterialTheme.colorScheme.onBackground)
 ) {
     var oldCount by remember {
-        mutableStateOf(count)
+        mutableIntStateOf(count)
     }
     SideEffect {
         oldCount = count
@@ -49,8 +50,9 @@ fun AnimatedCounter(
             AnimatedContent(
                 targetState = char,
                 transitionSpec = {
-                    slideInVertically { it } with slideOutVertically { -it }
-                }
+                    slideInVertically { it } togetherWith  slideOutVertically { -it }
+                },
+                label = ""
             ) { charInner ->
                 Text(
                     text = charInner.toString(),

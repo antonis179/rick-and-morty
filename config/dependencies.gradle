@@ -17,12 +17,12 @@ project.ext {
 	]
 
 	plugin_versions = [
-			android                 : '8.0.2',
+			android                 : '8.2.0',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
-			kotlin_bom              : '1.8.21',
-			gradleVersions          : '0.43.0',
-			hilt                    : '2.46.1',
-			nav_version             : '2.6.0-rc01',
+			kotlin_bom              : '1.9.20',
+			gradleVersions          : '0.50.0',
+			hilt                    : '2.49',
+			nav_version             : '2.7.5',
 	]
 
 	gradle_plugins = [
@@ -35,38 +35,35 @@ project.ext {
 
 	lib_versions = [
 			//Support
-			androidx_core               : '1.9.0',
+			androidx_core               : '1.12.0',
 			androidx_fragment           : '1.5.0',
 
-			lifecycle                   : '2.5.0',
-			lifecycle_runtime           : '2.5.0',
-			lifecycle_view_model        : '2.5.0',
-			lifecycle_view_model_state  : '2.5.0',
+			lifecycle                   : '2.6.2',
 			preferences                 : '1.1.0',
 
 			gson                        : '2.10.1',
 
 			//Net
 			retrofit                    : '2.9.0',
-			okhttp                      : '4.10.0',
+			okhttp                      : '4.12.0',
 
 			//Logging
 			timber                      : '5.0.1',
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom 				: '2023.04.01',
+			compose_bom 				: '2023.10.01',
 			compose_accompanist 		: '0.28.0',
 			compose_constraint_layout 	: '1.0.1',
 			compose_nav_animation       : '0.31.2-alpha',
-			coil						: '2.2.2',
+			coil						: '2.5.0',
 
 			// Navigation graph
 			hilt_nav_version            : '1.0.0',
 
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
 			coroutines_bom              : '1.7.1',
-			kotlinImmutable             : '0.3.5'
+			kotlinImmutable             : '0.3.6'
 	]
 
 	annotation_processors = [
@@ -88,9 +85,9 @@ project.ext {
 
 			//Lifecycle
 			lifecycle_java8             : "androidx.lifecycle:lifecycle-common-java8:${lib_versions.lifecycle}",
-			lifecycle_runtime           : "androidx.lifecycle:lifecycle-runtime-ktx:${lib_versions.lifecycle_runtime}",
-			lifecycle_view_model        : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lib_versions.lifecycle_view_model}",
-			lifecycle_view_model_state  : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${lib_versions.lifecycle_view_model_state}"
+			lifecycle_runtime           : "androidx.lifecycle:lifecycle-runtime-ktx:${lib_versions.lifecycle}",
+			lifecycle_view_model        : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lib_versions.lifecycle}",
+			lifecycle_view_model_state  : "androidx.lifecycle:lifecycle-viewmodel-savedstate:${lib_versions.lifecycle}"
 	]
 
 	libs_bom = [

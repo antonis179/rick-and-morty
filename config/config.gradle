@@ -1,12 +1,12 @@
 project.ext {
 
 	build_params = [
-			compile_version: 33,
+			compile_version: 34,
 			min_version    : 24,
-			target_version : 33,
+			target_version : 34,
 
 			// https://developer.android.com/jetpack/androidx/releases/compose-compiler
-			compose_compiler : '1.4.7'
+			compose_compiler : '1.5.5'
 	]
 
 	key_config = [
@@ -85,7 +85,6 @@ android {
 	}
 
 	buildFeatures {
-		viewBinding true
 		compose true
 	}
 
