@@ -16,7 +16,7 @@
 
 
 		<activity
-			android:name=".features.home.NavActivity"
+			android:name=".features.NavActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

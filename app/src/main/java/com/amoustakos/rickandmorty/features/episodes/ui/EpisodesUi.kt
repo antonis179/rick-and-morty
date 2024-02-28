@@ -24,13 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.amoustakos.rickandmorty.NavGraph
 import com.amoustakos.rickandmorty.PopRouteData
 import com.amoustakos.rickandmorty.R
 import com.amoustakos.rickandmorty.features.episodes.EpisodesViewModel
 import com.amoustakos.rickandmorty.features.episodes.ui.views.EpisodeListingView
 import com.amoustakos.rickandmorty.features.episodes.ui.views.EpisodeListingViewData
-import com.amoustakos.rickandmorty.navigation.screens.CharacterDetails
+import com.amoustakos.rickandmorty.features.characters.navigation.CharacterDetailsScreen
+import com.amoustakos.rickandmorty.features.characters.navigation.CharactersScreen
 import com.amoustakos.rickandmorty.ui.UiState
 import com.amoustakos.rickandmorty.ui.animation.SlideInBottomAnimator
 import com.amoustakos.rickandmorty.ui.bars.TitleOnly
@@ -45,7 +45,6 @@ import javax.inject.Inject
 
 
 class EpisodesUi @Inject constructor(
-    private val navGraph: NavGraph,
     private val enterAnimator: SlideInBottomAnimator
 ) {
 
@@ -55,10 +54,10 @@ class EpisodesUi @Inject constructor(
         model: EpisodesUiState
     ) {
         val onEpisodeClick = { ids: List<String> ->
-            navGraph.navigateToCharacters(
+            CharactersScreen.navigate(
                 nv,
                 ids,
-                PopRouteData(CharacterDetails.route, true)
+                PopRouteData(CharacterDetailsScreen.ROUTE, true)
             )
         }
 
@@ -146,7 +145,7 @@ class EpisodesUi @Inject constructor(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 private fun EpisodesUiPreview() = AppTheme {
-    EpisodesUi(NavGraph(), SlideInBottomAnimator()).View(
+    EpisodesUi(SlideInBottomAnimator()).View(
         rememberNavController(),
         makeState()
     )
@@ -155,7 +154,7 @@ private fun EpisodesUiPreview() = AppTheme {
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun EpisodesUiPreviewNight() = AppTheme {
-    EpisodesUi(NavGraph(), SlideInBottomAnimator()).View(
+    EpisodesUi(SlideInBottomAnimator()).View(
         rememberNavController(),
         makeState()
     )

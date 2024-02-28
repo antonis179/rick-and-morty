@@ -4,10 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amoustakos.rickandmorty.data.domain.DomainResponse
 import com.amoustakos.rickandmorty.data.domain.models.characters.DomainCharacter
+import com.amoustakos.rickandmorty.features.characters.navigation.CharacterDetailsScreen
 import com.amoustakos.rickandmorty.features.characters.ui.CharacterDetailsUi.CharacterDetailsUiState
 import com.amoustakos.rickandmorty.features.characters.ui.transformer.CharacterDetailsViewDataTransformer
 import com.amoustakos.rickandmorty.features.characters.usecases.FetchCharacterUseCase
-import com.amoustakos.rickandmorty.navigation.screens.CharacterDetails
 import com.amoustakos.rickandmorty.ui.UiState
 import com.amoustakos.rickandmorty.ui.lazy.UiViewData
 import com.amoustakos.rickandmorty.utils.DispatchersWrapper
@@ -27,7 +27,7 @@ class CharacterDetailsViewModel @Inject constructor(
     val uiState = CharacterDetailsUiState(this::fetch)
     private var id: Int = -1
 
-    fun setup(args: CharacterDetails.CharacterDetailsArgs) {
+    fun setup(args: CharacterDetailsScreen.CharacterDetailsArgs) {
         id = args.id
     }
 

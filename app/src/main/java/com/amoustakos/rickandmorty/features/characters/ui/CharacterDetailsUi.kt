@@ -13,8 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.amoustakos.rickandmorty.NavGraph
 import com.amoustakos.rickandmorty.R
 import com.amoustakos.rickandmorty.features.characters.CharacterDetailsViewModel
 import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterDetailsView

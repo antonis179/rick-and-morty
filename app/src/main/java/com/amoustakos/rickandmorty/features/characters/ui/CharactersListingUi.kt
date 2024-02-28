@@ -1,5 +1,6 @@
 package com.amoustakos.rickandmorty.features.characters.ui
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,26 +15,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.amoustakos.rickandmorty.NavGraph
+import androidx.navigation.compose.rememberNavController
 import com.amoustakos.rickandmorty.PopRouteData
 import com.amoustakos.rickandmorty.R
 import com.amoustakos.rickandmorty.features.characters.CharactersViewModel
 import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterListingView
-import com.amoustakos.rickandmorty.navigation.screens.Characters
+import com.amoustakos.rickandmorty.features.characters.navigation.CharacterDetailsScreen
+import com.amoustakos.rickandmorty.features.characters.navigation.CharactersScreen
 import com.amoustakos.rickandmorty.ui.UiState
 import com.amoustakos.rickandmorty.ui.bars.TitleOnly
 import com.amoustakos.rickandmorty.ui.lazy.UiView
 import com.amoustakos.rickandmorty.ui.lazy.UiViewData
+import com.amoustakos.rickandmorty.ui.theme.AppTheme
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import timber.log.Timber
 import javax.inject.Inject
 
-class CharactersListingUi @Inject constructor(
-    private val navGraph: NavGraph
-) {
+class CharactersListingUi @Inject constructor() {
 
     @Composable
     fun View(
@@ -41,7 +43,7 @@ class CharactersListingUi @Inject constructor(
         state: CharactersUiState
     ) {
         val onCharacterClick = { id: Int ->
-            navGraph.navigateToCharacterDetails(nv, id, PopRouteData(Characters.route, false))
+            CharacterDetailsScreen.navigate(nv, id, PopRouteData(CharactersScreen.ROUTE, false))
         }
 
         val views: ImmutableList<UiView> = listOf(
@@ -100,4 +102,22 @@ class CharactersListingUi @Inject constructor(
         @Composable
         fun makeModel(): CharactersViewModel = hiltViewModel()
     }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun PreviewCharactersListingUiNight() = AppTheme {
+    CharactersListingUi().View(
+        rememberNavController(),
+        CharactersListingUi.CharactersUiState()
+    )
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+private fun PreviewCharactersListingUi() = AppTheme {
+    CharactersListingUi().View(
+        rememberNavController(),
+        CharactersListingUi.CharactersUiState()
+    )
 }
