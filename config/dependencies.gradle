@@ -20,8 +20,8 @@ project.ext {
 			android                 : '8.4.0',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
 			kotlin_bom              : '1.9.20',
-			gradleVersions          : '0.50.0',
-			hilt                    : '2.49',
+			gradleVersions          : '0.51.0',
+			hilt                    : '2.51.1',
 			nav_version             : '2.7.5',
 	]
 
@@ -36,15 +36,15 @@ project.ext {
 	lib_versions = [
 			//Support
 			androidx_core               : '1.12.0',
-			androidx_fragment           : '1.5.0',
+			androidx_activity           : '1.9.0',
 
-			lifecycle                   : '2.6.2',
+			lifecycle                   : '2.8.0',
 			preferences                 : '1.1.0',
 
-			gson                        : '2.10.1',
+			gson                        : '2.11.0',
 
 			//Net
-			retrofit                    : '2.9.0',
+			retrofit                    : '2.11.0',
 			okhttp                      : '4.12.0',
 
 			//Logging
@@ -52,18 +52,18 @@ project.ext {
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom 				: '2023.10.01',
+			compose_bom 				: '2024.05.00',
 			compose_accompanist 		: '0.28.0',
 			compose_constraint_layout 	: '1.0.1',
 			compose_nav_animation       : '0.31.2-alpha',
-			coil						: '2.5.0',
+			coil						: '2.6.0',
 
 			// Navigation graph
-			hilt_nav_version            : '1.0.0',
+			hilt_nav_version            : '1.2.0',
 
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
-			coroutines_bom              : '1.7.1',
-			kotlinImmutable             : '0.3.6'
+			coroutines_bom              : '1.8.1',
+			kotlinImmutable             : '0.3.7'
 	]
 
 	annotation_processors = [
@@ -81,7 +81,7 @@ project.ext {
 
 	libs_support = [
 			androidx_core       : "androidx.core:core-ktx:${lib_versions.androidx_core}",
-			fragment            : "androidx.fragment:fragment-ktx:${lib_versions.androidx_fragment}",
+			androidx_activity   : "androidx.activity:activity-ktx:${lib_versions.androidx_activity}",
 
 			//Lifecycle
 			lifecycle_java8             : "androidx.lifecycle:lifecycle-common-java8:${lib_versions.lifecycle}",
@@ -111,7 +111,7 @@ project.ext {
 			animation           : 'androidx.compose.animation:animation',
 			animation_core      : 'androidx.compose.animation:animation-core',
 			animation_graphics  : 'androidx.compose.animation:animation-graphics',
-			accompanist			: "com.google.accompanist:accompanist-themeadapter-material3:${lib_versions.compose_accompanist}",
+//			accompanist			: "com.google.accompanist:accompanist-themeadapter-material3:${lib_versions.compose_accompanist}",
 			constraint_layout	: "androidx.constraintlayout:constraintlayout-compose:${lib_versions.compose_constraint_layout}",
 			compose_nav_animation: "com.google.accompanist:accompanist-navigation-animation:${lib_versions.compose_nav_animation}"
 	]

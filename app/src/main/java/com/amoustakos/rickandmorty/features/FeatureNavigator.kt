@@ -4,11 +4,12 @@ import com.amoustakos.rickandmorty.features.characters.navigation.CharactersNavi
 import com.amoustakos.rickandmorty.features.episodes.navigation.EpisodesNavigator
 import com.amoustakos.rickandmorty.navigation.FeatureScreens
 import com.amoustakos.rickandmorty.navigation.screens.Screen
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 import javax.inject.Singleton
 
 
-@Singleton
+@ActivityScoped
 class FeatureNavigator @Inject constructor(
     episodes: EpisodesNavigator,
     characters: CharactersNavigator

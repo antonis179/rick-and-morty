@@ -10,11 +10,12 @@ import com.amoustakos.rickandmorty.navigation.Transitions
 import com.amoustakos.rickandmorty.navigation.screens.Screen
 import com.google.accompanist.navigation.animation.composable
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
-class EpisodesScreen @Inject constructor(private val ui: EpisodesUi) : Screen, Transitions {
+class EpisodesScreen @Inject constructor(
+    private val ui: EpisodesUi,
+    private val transitions: Transitions
+) : Screen, Transitions by transitions {
 
     override val route: String = ROUTE
 

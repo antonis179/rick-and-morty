@@ -1,5 +1,6 @@
 package com.amoustakos.rickandmorty.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 
-abstract class BaseActivity : AppCompatActivity()
+
+abstract class BaseActivity : ComponentActivity()

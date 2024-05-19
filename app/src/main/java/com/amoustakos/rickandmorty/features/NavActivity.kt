@@ -2,6 +2,7 @@ package com.amoustakos.rickandmorty.features
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalAnimationApi
 import com.amoustakos.rickandmorty.ui.BaseActivity
 import com.amoustakos.rickandmorty.ui.theme.AppTheme
@@ -20,6 +21,7 @@ class NavActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
         setContent {
             AppTheme {

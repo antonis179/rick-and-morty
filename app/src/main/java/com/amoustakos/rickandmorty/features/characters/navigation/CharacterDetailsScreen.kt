@@ -14,11 +14,12 @@ import com.amoustakos.rickandmorty.navigation.Transitions
 import com.amoustakos.rickandmorty.navigation.screens.Screen
 import com.google.accompanist.navigation.animation.composable
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
-class CharacterDetailsScreen @Inject constructor(private val ui: CharacterDetailsUi) : Screen, Transitions {
+class CharacterDetailsScreen @Inject constructor(
+    private val ui: CharacterDetailsUi,
+    private val transitions: Transitions
+) : Screen, Transitions by transitions {
 
     override val route = ROUTE
 

@@ -6,7 +6,10 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavBackStackEntry
+import javax.inject.Inject
 
+
+class DefaultTransitions @Inject constructor() : Transitions
 
 interface Transitions {
 

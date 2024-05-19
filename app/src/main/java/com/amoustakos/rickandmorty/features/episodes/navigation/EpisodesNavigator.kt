@@ -2,11 +2,11 @@ package com.amoustakos.rickandmorty.features.episodes.navigation
 
 import com.amoustakos.rickandmorty.navigation.FeatureScreens
 import com.amoustakos.rickandmorty.navigation.screens.Screen
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
-@Singleton
+@ActivityScoped
 class EpisodesNavigator @Inject constructor(
     episodes: EpisodesScreen
 ) : FeatureScreens {

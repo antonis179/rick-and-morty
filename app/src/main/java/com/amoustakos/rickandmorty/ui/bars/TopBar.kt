@@ -8,7 +8,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
-//https://semicolonspace.com/jetpack-compose-topappbar/
 sealed interface TopBar {
 
     @Composable
