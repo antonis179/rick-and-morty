@@ -13,7 +13,7 @@ android {
 		applicationId "com.amoustakos.rickandmorty"
 	}
 
-	flavorDimensions "stores"
+	flavorDimensions = ["stores"]
 
 	productFlavors {
 		play {
