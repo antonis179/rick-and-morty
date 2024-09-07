@@ -3,6 +3,7 @@ apply plugin: module_plugins.kotlin
 apply plugin: module_plugins.kapt
 apply plugin: module_plugins.kotlinParcelize
 apply plugin: module_plugins.hilt
+apply plugin: module_plugins.compose_compiler
 
 apply from: "$project.rootDir/config/config.gradle"
 

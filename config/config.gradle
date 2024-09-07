@@ -1,12 +1,9 @@
 project.ext {
 
 	build_params = [
-			compile_version: 34,
-			min_version    : 24,
-			target_version : 34,
-
-			// https://developer.android.com/jetpack/androidx/releases/compose-compiler
-			compose_compiler : '1.5.5'
+			compile_version: 35,
+			min_version    : 26,
+			target_version : 35
 	]
 
 	key_config = [
@@ -80,12 +77,14 @@ project.ext {
 android {
 	compileSdk build_params.compile_version
 
-	composeOptions {
-		kotlinCompilerExtensionVersion = "${build_params.compose_compiler}"
-	}
-
 	buildFeatures {
 		compose true
+	}
+
+	composeCompiler {
+//		enableStrongSkippingMode = true
+//		reportsDestination = layout.buildDirectory.dir("compose_compiler")
+//		stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
 	}
 
 	defaultConfig {

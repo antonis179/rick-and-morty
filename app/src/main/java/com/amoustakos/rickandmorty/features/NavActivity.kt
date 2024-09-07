@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import com.amoustakos.rickandmorty.ui.BaseActivity
 import com.amoustakos.rickandmorty.ui.theme.AppTheme
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,9 +25,9 @@ class NavActivity : BaseActivity() {
 
         setContent {
             AppTheme {
-                val nv = rememberAnimatedNavController()
+                val nv = rememberNavController()
 
-                AnimatedNavHost(
+                NavHost(
                     nv,
                     startDestination = navigator.start
                 ) {

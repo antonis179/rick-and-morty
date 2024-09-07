@@ -6,13 +6,13 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.amoustakos.rickandmorty.PopRouteData
 import com.amoustakos.rickandmorty.features.characters.ui.CharactersListingUi
 import com.amoustakos.rickandmorty.navigateSingleTop
 import com.amoustakos.rickandmorty.navigation.Transitions
 import com.amoustakos.rickandmorty.navigation.screens.Screen
-import com.google.accompanist.navigation.animation.composable
 import javax.inject.Inject
 
 

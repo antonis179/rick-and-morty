@@ -3,12 +3,12 @@ package com.amoustakos.rickandmorty.features.episodes.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
 import com.amoustakos.rickandmorty.PopRouteData
 import com.amoustakos.rickandmorty.features.episodes.ui.EpisodesUi
 import com.amoustakos.rickandmorty.navigateSingleTop
 import com.amoustakos.rickandmorty.navigation.Transitions
 import com.amoustakos.rickandmorty.navigation.screens.Screen
-import com.google.accompanist.navigation.animation.composable
 import javax.inject.Inject
 
 

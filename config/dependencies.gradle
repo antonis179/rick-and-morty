@@ -13,16 +13,17 @@ project.ext {
 			kapt                      : 'kotlin-kapt',
 			kotlinParcelize           : 'kotlin-parcelize',
 			dependencyUpdates         : 'com.github.ben-manes.versions',
-			hilt                      : 'dagger.hilt.android.plugin'
+			hilt                      : 'dagger.hilt.android.plugin',
+			compose_compiler          : 'org.jetbrains.kotlin.plugin.compose'
 	]
 
 	plugin_versions = [
-			android                 : '8.4.0',
+			android                 : '8.5.2',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
-			kotlin_bom              : '1.9.20',
+			kotlin_bom              : '2.0.20',
 			gradleVersions          : '0.51.0',
-			hilt                    : '2.51.1',
-			nav_version             : '2.7.5',
+			hilt                    : '2.52',
+			nav_version             : '2.8.0',
 	]
 
 	gradle_plugins = [
@@ -30,7 +31,8 @@ project.ext {
 			kotlin                  : "org.jetbrains.kotlin:kotlin-gradle-plugin:${plugin_versions.kotlin_bom}",
 			gradleVersions          : "com.github.ben-manes:gradle-versions-plugin:${plugin_versions.gradleVersions}",
 			hilt                    : "com.google.dagger:hilt-android-gradle-plugin:${plugin_versions.hilt}",
-			navigation              : "androidx.navigation:navigation-safe-args-gradle-plugin:${plugin_versions.nav_version}"
+			navigation              : "androidx.navigation:navigation-safe-args-gradle-plugin:${plugin_versions.nav_version}",
+			compose_compiler        : "org.jetbrains.kotlin:compose-compiler-gradle-plugin:${plugin_versions.kotlin_bom}"
 	]
 
 	lib_versions = [
@@ -52,7 +54,7 @@ project.ext {
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom 				: '2024.05.00',
+			compose_bom 				: '2024.08.00',
 			compose_accompanist 		: '0.28.0',
 			compose_constraint_layout 	: '1.0.1',
 			compose_nav_animation       : '0.31.2-alpha',
@@ -111,9 +113,7 @@ project.ext {
 			animation           : 'androidx.compose.animation:animation',
 			animation_core      : 'androidx.compose.animation:animation-core',
 			animation_graphics  : 'androidx.compose.animation:animation-graphics',
-//			accompanist			: "com.google.accompanist:accompanist-themeadapter-material3:${lib_versions.compose_accompanist}",
-			constraint_layout	: "androidx.constraintlayout:constraintlayout-compose:${lib_versions.compose_constraint_layout}",
-			compose_nav_animation: "com.google.accompanist:accompanist-navigation-animation:${lib_versions.compose_nav_animation}"
+			constraint_layout	: "androidx.constraintlayout:constraintlayout-compose:${lib_versions.compose_constraint_layout}"
 	]
 
 	libs_navigation = [
