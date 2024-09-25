@@ -18,12 +18,12 @@ project.ext {
 	]
 
 	plugin_versions = [
-			android                 : '8.5.2',
+			android                 : '8.6.1',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
 			kotlin_bom              : '2.0.20',
 			gradleVersions          : '0.51.0',
 			hilt                    : '2.52',
-			nav_version             : '2.8.0',
+			nav_version             : '2.8.1',
 	]
 
 	gradle_plugins = [
@@ -54,10 +54,9 @@ project.ext {
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom 				: '2024.08.00',
+			compose_bom 				: '2024.09.00',
 			compose_accompanist 		: '0.28.0',
 			compose_constraint_layout 	: '1.0.1',
-			compose_nav_animation       : '0.31.2-alpha',
 			coil						: '2.6.0',
 
 			// Navigation graph
