@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 
 class EpisodesDomainTransformer @Inject constructor() :
-    DomainTransformer<ApiEpisodesResponse, EpisodesResponse, Int> {
+    DomainTransformer<ApiEpisodesResponse, EpisodesResponse> {
 
 
-    override fun transform(response: ApiEpisodesResponse, data: Int): DomainResponse<EpisodesResponse>? {
+    override fun transform(response: ApiEpisodesResponse): DomainResponse<EpisodesResponse>? {
         response.info ?: return null
         response.results ?: return null
 
@@ -32,7 +32,7 @@ class EpisodesDomainTransformer @Inject constructor() :
             )
         }
 
-        val domainData = EpisodesResponse(Page(data, availablePages), episodes)
+        val domainData = EpisodesResponse(Page(availablePages), episodes)
         return DomainResponse.Success(domainData)
     }
 

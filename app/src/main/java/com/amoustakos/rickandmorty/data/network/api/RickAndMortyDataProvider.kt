@@ -14,7 +14,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 interface RickAndMortyApi {
@@ -37,13 +36,19 @@ interface RickAndMortyApi {
     }
 }
 
-@Singleton
-class RickAndMortyDataProvider @Inject constructor(
+interface RickAndMortyDataProvider {
+    suspend fun fetchEpisodes(req: ApiFetchEpisodesRequest): Response<ApiEpisodesResponse>
+    suspend fun fetchCharacterById(req: ApiFetchCharacterRequest): Response<ApiCharacter>
+    suspend fun fetchCharacters(req: ApiFetchCharactersRequest): Response<ApiCharactersResponse>
+    suspend fun fetchCharacters(req: ApiFetchCharactersByIdsRequest): Response<ApiCharactersResponse>
+}
+
+class RickAndMortyDataProviderImpl @Inject constructor(
     override val api: RickAndMortyApi,
     private val cache: RamCacheProvider,
-) : DataProvider<RickAndMortyApi> {
+) : RickAndMortyDataProvider, DataProvider<RickAndMortyApi> {
 
-    suspend fun fetchEpisodes(req: ApiFetchEpisodesRequest): Response<ApiEpisodesResponse> {
+    override suspend fun fetchEpisodes(req: ApiFetchEpisodesRequest): Response<ApiEpisodesResponse> {
         val cachedItem: Response<ApiEpisodesResponse>? = cache.get(req)
 
         return if (cachedItem != null) {
@@ -55,7 +60,7 @@ class RickAndMortyDataProvider @Inject constructor(
         }
     }
 
-    suspend fun fetchCharacterById(req: ApiFetchCharacterRequest): Response<ApiCharacter> {
+    override suspend fun fetchCharacterById(req: ApiFetchCharacterRequest): Response<ApiCharacter> {
         val cachedItem: Response<ApiCharacter>? = cache.get(req)
 
         return if (cachedItem != null) {
@@ -67,7 +72,7 @@ class RickAndMortyDataProvider @Inject constructor(
         }
     }
 
-    suspend fun fetchCharacters(req: ApiFetchCharactersRequest): Response<ApiCharactersResponse> {
+    override suspend fun fetchCharacters(req: ApiFetchCharactersRequest): Response<ApiCharactersResponse> {
         val cachedItem: Response<ApiCharactersResponse>? = cache.get(req)
 
         return if (cachedItem != null) {
@@ -79,7 +84,7 @@ class RickAndMortyDataProvider @Inject constructor(
         }
     }
 
-    suspend fun fetchCharacters(req: ApiFetchCharactersByIdsRequest): Response<ApiCharactersResponse> {
+    override suspend fun fetchCharacters(req: ApiFetchCharactersByIdsRequest): Response<ApiCharactersResponse> {
         val cachedItem: Response<ApiCharactersResponse>? = cache.get(req)
 
         return if (cachedItem != null) {

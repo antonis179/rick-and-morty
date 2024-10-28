@@ -7,7 +7,6 @@ data class EpisodesResponse(
 )
 
 data class Page(
-    val currentPage: Int,
     val availablePages: Int
 )
 

@@ -4,6 +4,7 @@ apply plugin: module_plugins.kapt
 apply plugin: module_plugins.kotlinParcelize
 apply plugin: module_plugins.hilt
 apply plugin: module_plugins.compose_compiler
+apply plugin: module_plugins.kotlin_serialization
 
 apply from: "$project.rootDir/config/config.gradle"
 

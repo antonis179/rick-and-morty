@@ -6,4 +6,6 @@
 	<string name="title_characters">Characters</string>
 	<string name="title_character">Character</string>
 
+	<string name="error_message_default">Oops! Something went wrong.</string>
+
 </resources>

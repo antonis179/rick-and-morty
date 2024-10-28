@@ -7,12 +7,12 @@
 	<application
 		android:name=".RaMApplication"
 		android:icon="@mipmap/ic_launcher"
-		android:largeHeap="true"
 		android:label="@string/app_name"
 		android:roundIcon="@mipmap/ic_launcher_round"
 		android:supportsRtl="true"
+		android:enableOnBackInvokedCallback="true"
 		android:theme="@style/Theme.MaterialComponents.NoActionBar"
-		tools:ignore="AllowBackup">
+		tools:ignore="AllowBackup,UnusedAttribute">
 
 
 		<activity

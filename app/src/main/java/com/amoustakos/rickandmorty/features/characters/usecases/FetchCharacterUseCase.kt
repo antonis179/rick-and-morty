@@ -16,16 +16,23 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class FetchCharacterUseCase @Inject constructor(
+interface FetchCharacterUseCase {
+    suspend fun fetchAll(): DomainResponse<CharactersResponse>
+    suspend fun fetch(ids: List<String>): DomainResponse<CharactersResponse>
+    suspend fun fetch(id: Int): DomainResponse<DomainCharacter>
+}
+
+
+class FetchCharacterUseCaseImpl @Inject constructor(
     private val dataProvider: RickAndMortyDataProvider,
     private val errorHandler: ApiErrorHandler<ApiCharacter, DomainCharacter>,
     private val charactersErrorHandler: ApiErrorHandler<ApiCharactersResponse, CharactersResponse>,
-    private val domainTransformer: DomainTransformer<ApiCharacter, DomainCharacter, Unit?>,
-    private val charactersDomainTransformer: DomainTransformer<ApiCharactersResponse, CharactersResponse, Unit?>,
+    private val domainTransformer: DomainTransformer<ApiCharacter, DomainCharacter>,
+    private val charactersDomainTransformer: DomainTransformer<ApiCharactersResponse, CharactersResponse>,
     private val dispatchers: DispatchersWrapper
-) {
+): FetchCharacterUseCase {
 
-    suspend fun fetchAll(): DomainResponse<CharactersResponse> {
+    override suspend fun fetchAll(): DomainResponse<CharactersResponse> {
         return withContext(dispatchers.io) {
             runCatching {
                 val response = dataProvider.fetchCharacters(ApiFetchCharactersRequest())
@@ -34,7 +41,7 @@ class FetchCharacterUseCase @Inject constructor(
                 } else {
                     withContext(dispatchers.default) {
                         response.body()?.let {
-                            charactersDomainTransformer.transform(it, null)
+                            charactersDomainTransformer.transform(it)
                                 ?: DomainResponse.Error.UnknownError()
                         } ?: DomainResponse.Error.UnknownError()
                     }
@@ -45,7 +52,7 @@ class FetchCharacterUseCase @Inject constructor(
         }
     }
 
-    suspend fun fetch(ids: List<String>): DomainResponse<CharactersResponse> {
+    override suspend fun fetch(ids: List<String>): DomainResponse<CharactersResponse> {
         return withContext(dispatchers.io) {
             runCatching {
                 val response = dataProvider.fetchCharacters(ApiFetchCharactersByIdsRequest(ids))
@@ -54,7 +61,7 @@ class FetchCharacterUseCase @Inject constructor(
                 } else {
                     withContext(dispatchers.default) {
                         response.body()?.let {
-                            charactersDomainTransformer.transform(it, null)
+                            charactersDomainTransformer.transform(it)
                                 ?: DomainResponse.Error.UnknownError()
                         } ?: DomainResponse.Error.UnknownError()
                     }
@@ -65,7 +72,7 @@ class FetchCharacterUseCase @Inject constructor(
         }
     }
 
-    suspend fun fetch(id: Int): DomainResponse<DomainCharacter> {
+    override suspend fun fetch(id: Int): DomainResponse<DomainCharacter> {
         return withContext(dispatchers.io) {
             runCatching {
                 val response = dataProvider.fetchCharacterById(ApiFetchCharacterRequest(id))
@@ -74,7 +81,7 @@ class FetchCharacterUseCase @Inject constructor(
                 } else {
                     withContext(dispatchers.default) {
                         response.body()?.let {
-                            domainTransformer.transform(it, null)
+                            domainTransformer.transform(it)
                                 ?: DomainResponse.Error.UnknownError()
                         } ?: DomainResponse.Error.UnknownError()
                     }

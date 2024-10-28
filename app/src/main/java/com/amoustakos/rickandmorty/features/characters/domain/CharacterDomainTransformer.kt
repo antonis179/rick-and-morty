@@ -10,9 +10,9 @@ import javax.inject.Inject
 
 
 class CharacterDomainTransformer @Inject constructor() :
-    DomainTransformer<ApiCharacter, DomainCharacter, Unit?> {
+    DomainTransformer<ApiCharacter, DomainCharacter> {
 
-    override fun transform(response: ApiCharacter, data: Unit?): DomainResponse<DomainCharacter> {
+    override fun transform(response: ApiCharacter): DomainResponse<DomainCharacter> {
         return runCatching {
             DomainResponse.Success(
                 DomainCharacter(
@@ -37,7 +37,7 @@ class CharacterDomainTransformer @Inject constructor() :
                 )
             )
         }.getOrElse {
-            DomainResponse.Error.UnknownError(it)
+            DomainResponse.Error.TransformationError(it)
         }
     }
 

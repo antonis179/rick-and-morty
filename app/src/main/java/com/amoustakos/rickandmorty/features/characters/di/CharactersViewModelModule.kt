@@ -9,6 +9,9 @@ import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharacter
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharactersResponse
 import com.amoustakos.rickandmorty.features.characters.domain.CharacterDomainTransformer
 import com.amoustakos.rickandmorty.features.characters.domain.CharactersDomainTransformer
+import com.amoustakos.rickandmorty.features.characters.ui.transformer.CharacterDetailsViewDataTransformer
+import com.amoustakos.rickandmorty.features.characters.ui.transformer.CharacterListingViewDataTransformer
+import com.amoustakos.rickandmorty.ui.transformers.ViewDataTransformer
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -36,12 +39,24 @@ interface CharactersViewModelModule {
     @ViewModelScoped
     fun bindDomainTransformer(
         impl: CharacterDomainTransformer
-    ): DomainTransformer<ApiCharacter, DomainCharacter, Unit?>
+    ): DomainTransformer<ApiCharacter, DomainCharacter>
 
     @Binds
     @ViewModelScoped
     fun bindCharactersDomainTransformer(
         impl: CharactersDomainTransformer
-    ): DomainTransformer<ApiCharactersResponse, CharactersResponse, Unit?>
+    ): DomainTransformer<ApiCharactersResponse, CharactersResponse>
+
+    @Binds
+    @ViewModelScoped
+    fun bindCharacterDetailsViewDataTransformer(
+        impl: CharacterDetailsViewDataTransformer
+    ): ViewDataTransformer<DomainCharacter>
+
+    @Binds
+    @ViewModelScoped
+    fun bindCharacterListingViewDataTransformer(
+        impl: CharacterListingViewDataTransformer
+    ): ViewDataTransformer<CharactersResponse>
 
 }

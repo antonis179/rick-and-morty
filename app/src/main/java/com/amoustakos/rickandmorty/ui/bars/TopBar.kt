@@ -15,7 +15,6 @@ sealed interface TopBar {
 
 }
 
-
 class TitleOnly(private val title: String) : TopBar {
     @Composable
     override fun View(modifier: Modifier) {

@@ -16,9 +16,6 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 
-/**
- * Basic Hilt structure can be found here: [https://dagger.dev/hilt/components]
- */
 @InstallIn(SingletonComponent::class)
 @Module
 class ApplicationModule {

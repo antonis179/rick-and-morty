@@ -81,12 +81,6 @@ android {
 		compose true
 	}
 
-	composeCompiler {
-//		enableStrongSkippingMode = true
-//		reportsDestination = layout.buildDirectory.dir("compose_compiler")
-//		stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
-	}
-
 	defaultConfig {
 		versionCode project.ext.app.version()
 		versionName project.ext.app.versionName()

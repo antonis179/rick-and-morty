@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
@@ -12,26 +14,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.amoustakos.rickandmorty.R
-import com.amoustakos.rickandmorty.features.characters.CharacterDetailsViewModel
-import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterDetailsView
-import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterDetailsViewData
-import com.amoustakos.rickandmorty.ui.UiState
+import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
+import com.amoustakos.rickandmorty.compose.ui.views.GenericTextView
+import com.amoustakos.rickandmorty.compose.ui.views.RemoteImageView
+import com.amoustakos.rickandmorty.compose.ui.views.lists.LazyItem
+import com.amoustakos.rickandmorty.features.characters.ui.CharacterDetailsUiState.State
+import com.amoustakos.rickandmorty.features.common.views.errors.DefaultErrorView
+import com.amoustakos.rickandmorty.features.common.views.loaders.DefaultFullPageLoader
 import com.amoustakos.rickandmorty.ui.bars.TitleOnly
-import com.amoustakos.rickandmorty.ui.lazy.UiViewData
-import com.amoustakos.rickandmorty.ui.loaders.DefaultFullPageLoadingIndicator
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
 class CharacterDetailsUi @Inject constructor() {
 
-    private val characterView = CharacterDetailsView()
-
     @Composable
-    fun View(state: CharacterDetailsUiState) {
-        if (state.state == UiState.Init) {
-            state.fetch()
-        }
+    fun View(uiState: CharacterDetailsUiState) {
 
         Column(
             modifier = Modifier
@@ -39,51 +38,56 @@ class CharacterDetailsUi @Inject constructor() {
                 .background(MaterialTheme.colorScheme.background)
         ) {
 
-            when (state.state) {
-                UiState.Loading -> {
+            when (val state = uiState.state) {
+                State.None, State.Loading -> {
                     TitleOnly(stringResource(id = R.string.title_character))
                         .View(modifier = Modifier.fillMaxWidth())
 
-                    DefaultFullPageLoadingIndicator()
+                    DefaultFullPageLoader(Modifier.fillMaxSize())
                 }
 
-                UiState.Error -> {
-                    //TODO: Error
-                }
-                UiState.Idle -> {
-                    val data = state.viewData ?: run {
-                        //TODO: Error
-                    }
-
-                    if (data !is CharacterDetailsViewData) {
-                        //TODO: Error
-                        return@Column
-                    }
-
-                    TitleOnly(data.name).View(modifier = Modifier.fillMaxWidth())
-
-                    characterView.View(position = 0, data = data)
-                }
-
-                else -> {
+                State.Error -> {
                     TitleOnly(stringResource(id = R.string.title_character))
                         .View(modifier = Modifier.fillMaxWidth())
+
+                    DefaultErrorView(Modifier.fillMaxSize())
+                }
+
+                is State.Data -> {
+
+                    val views = persistentListOf(
+                        GenericTextView(),
+                        RemoteImageView(),
+                    )
+
+                    TitleOnly(state.name).View(modifier = Modifier.fillMaxWidth())
+
+                    LazyColumn(Modifier.fillMaxSize()) {
+                        items(
+                            items = state.viewData,
+                            key = { item -> item.getKey() },
+                            contentType = { item -> item.getType() }
+                        ) { item ->
+                            LazyItem(views, item)
+                        }
+                    }
                 }
             }
         }
-
     }
+}
 
-    @Stable
-    class CharacterDetailsUiState(
-        val fetch: () -> Unit = {}
-    ) {
-        var state by mutableStateOf<UiState>(UiState.Init)
-        var viewData: UiViewData? by mutableStateOf(null)
-    }
+@Stable
+class CharacterDetailsUiState() {
+    var state by mutableStateOf<State>(State.None)
 
-    companion object {
-        @Composable
-        fun makeModel(): CharacterDetailsViewModel = hiltViewModel()
+    sealed interface State {
+        data object None : State
+        data object Loading : State
+        data object Error : State
+        data class Data(
+            val name: String,
+            val viewData: PersistentList<ComposeViewData>
+        ) : State
     }
 }

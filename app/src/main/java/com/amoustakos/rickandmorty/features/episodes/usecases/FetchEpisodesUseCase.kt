@@ -13,14 +13,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class FetchEpisodesUseCase @Inject constructor(
+interface FetchEpisodesUseCase {
+    suspend fun fetch(page: Int): DomainResponse<EpisodesResponse>
+}
+
+class FetchEpisodesUseCaseImpl @Inject constructor(
     private val dataProvider: RickAndMortyDataProvider,
     private val errorHandler: ApiErrorHandler<ApiEpisodesResponse, EpisodesResponse>,
-    private val domainTransformer: DomainTransformer<ApiEpisodesResponse, EpisodesResponse, Int>,
+    private val domainTransformer: DomainTransformer<ApiEpisodesResponse, EpisodesResponse>,
     private val dispatchers: DispatchersWrapper
-) {
+): FetchEpisodesUseCase {
 
-    suspend fun fetch(page: Int): DomainResponse<EpisodesResponse> {
+    override suspend fun fetch(page: Int): DomainResponse<EpisodesResponse> {
         return withContext(dispatchers.io) {
             runCatching {
                 val response = dataProvider.fetchEpisodes(ApiFetchEpisodesRequest(page))
@@ -29,7 +33,7 @@ class FetchEpisodesUseCase @Inject constructor(
                 } else {
                     withContext(dispatchers.default) {
                         response.body()?.let {
-                            domainTransformer.transform(it, page) ?: Error.UnknownError()
+                            domainTransformer.transform(it) ?: Error.TransformationError()
                         } ?: Error.UnknownError()
                     }
                 }

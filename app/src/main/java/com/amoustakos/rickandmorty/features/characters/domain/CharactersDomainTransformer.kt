@@ -12,13 +12,10 @@ import javax.inject.Inject
 
 //TODO: use character transformer in loop
 class CharactersDomainTransformer @Inject constructor() :
-    DomainTransformer<ApiCharactersResponse, CharactersResponse, Unit?> {
+    DomainTransformer<ApiCharactersResponse, CharactersResponse> {
 
 
-    override fun transform(
-        response: ApiCharactersResponse,
-        data: Unit?
-    ): DomainResponse<CharactersResponse> {
+    override fun transform(response: ApiCharactersResponse): DomainResponse<CharactersResponse> {
         return runCatching {
             DomainResponse.Success(
                 CharactersResponse(
@@ -47,7 +44,7 @@ class CharactersDomainTransformer @Inject constructor() :
                 )
             )
         }.getOrElse {
-            DomainResponse.Error.UnknownError(it)
+            DomainResponse.Error.TransformationError(it)
         }
     }
 

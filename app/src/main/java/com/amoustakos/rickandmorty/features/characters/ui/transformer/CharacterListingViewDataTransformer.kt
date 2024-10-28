@@ -1,20 +1,21 @@
 package com.amoustakos.rickandmorty.features.characters.ui.transformer
 
+import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
 import com.amoustakos.rickandmorty.data.domain.models.characters.CharactersResponse
-import com.amoustakos.rickandmorty.features.characters.ui.views.CharacterListingViewData
-import com.amoustakos.rickandmorty.ui.lazy.UiViewData
+import com.amoustakos.rickandmorty.features.common.views.ImageListingViewData
+import com.amoustakos.rickandmorty.ui.transformers.ViewDataTransformer
 import javax.inject.Inject
 
 
-class CharacterListingViewDataTransformer @Inject constructor() {
+class CharacterListingViewDataTransformer @Inject constructor() : ViewDataTransformer<CharactersResponse> {
 
-    fun transform(model: CharactersResponse): List<UiViewData> {
+    override fun transform(model: CharactersResponse): List<ComposeViewData> {
         return model.characters.map {
-            CharacterListingViewData(
-                it.id,
-                it.image,
-                it.name,
-                it.type
+            ImageListingViewData(
+                id = it.id,
+                icon = it.image,
+                title = it.name,
+                description = it.type
             )
         }
     }

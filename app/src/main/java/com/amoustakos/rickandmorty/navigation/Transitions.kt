@@ -13,32 +13,20 @@ class DefaultTransitions @Inject constructor() : Transitions
 
 interface Transitions {
 
-    fun enterTransition(
-        from: String?,
-        to: String?
-    ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
-        return { slideInHorizontally(initialOffsetX = { it*2 }) }
+    fun enterTransition(): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
+        return { slideInHorizontally(initialOffsetX = { it }) }
     }
 
-    fun exitTransition(
-        from: String?,
-        to: String?
-    ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
-        return { slideOutHorizontally(targetOffsetX = { -it*2 }) }
+    fun exitTransition(): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
+        return { slideOutHorizontally(targetOffsetX = { -it }) }
     }
 
-    fun popEnterTransition(
-        from: String?,
-        to: String?
-    ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
-        return { slideInHorizontally(initialOffsetX = { -it*2 }) }
+    fun popEnterTransition(): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> EnterTransition?)? {
+        return { slideInHorizontally(initialOffsetX = { -it }) }
     }
 
-    fun popExitTransition(
-        from: String?,
-        to: String?
-    ): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
-        return { slideOutHorizontally(targetOffsetX = { it*2 }) }
+    fun popExitTransition(): (AnimatedContentTransitionScope<NavBackStackEntry>.() -> ExitTransition?)? {
+        return { slideOutHorizontally(targetOffsetX = { it }) }
     }
 
 
