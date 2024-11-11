@@ -42,12 +42,13 @@ fun ClickableAnnotatedText(
                             ) {
                                 text.action?.invoke()
                             }
-                        withLink(link) { append(text.text) }
+                        withLink(link) { append(text.text()) }
                     }
 
                     else -> {
-                        append(text.text)
-                        addStyle(style = text.makeSpanStyle(), start = 0, end = text.text.length)
+                        val textValue = text.text()
+                        append(textValue)
+                        addStyle(style = text.makeSpanStyle(), start = 0, end = textValue.length)
                     }
                 }
             }
@@ -64,17 +65,17 @@ private fun ClickableAnnotatedStringTextPreview() = AppTheme {
         texts = AnnotatedTextAttribute(
             persistentListOf(
                 TextAttribute(
-                    text = "See ",
+                    text = { "See " },
                     style = typography.titleMedium.copy(color = black),
                     overflow = TextOverflow.Ellipsis
                 ),
                 ClickableTextAttribute(
                     tag = "terms",
-                    text = "Terms and Conditions",
+                    text = { "Terms and Conditions" },
                     style = typography.titleMedium.copy(color = Color.Red, textDecoration = TextDecoration.Underline)
                 ),
                 TextAttribute(
-                    text = " to continue",
+                    text = { " to continue" },
                     style = typography.titleMedium.copy(color = black),
                     overflow = TextOverflow.Ellipsis
                 )

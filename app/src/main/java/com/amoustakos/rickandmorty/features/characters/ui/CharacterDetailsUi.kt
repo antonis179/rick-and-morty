@@ -20,9 +20,9 @@ import com.amoustakos.rickandmorty.compose.ui.views.GenericTextView
 import com.amoustakos.rickandmorty.compose.ui.views.RemoteImageView
 import com.amoustakos.rickandmorty.compose.ui.views.lists.LazyItem
 import com.amoustakos.rickandmorty.features.characters.ui.CharacterDetailsUiState.State
+import com.amoustakos.rickandmorty.features.common.views.bars.TitleOnly
 import com.amoustakos.rickandmorty.features.common.views.errors.DefaultErrorView
 import com.amoustakos.rickandmorty.features.common.views.loaders.DefaultFullPageLoader
-import com.amoustakos.rickandmorty.ui.bars.TitleOnly
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
@@ -55,17 +55,16 @@ class CharacterDetailsUi @Inject constructor() {
 
                 is State.Data -> {
 
+                    TitleOnly(state.name).View(modifier = Modifier.fillMaxWidth())
+
                     val views = persistentListOf(
                         GenericTextView(),
-                        RemoteImageView(),
+                        RemoteImageView()
                     )
-
-                    TitleOnly(state.name).View(modifier = Modifier.fillMaxWidth())
 
                     LazyColumn(Modifier.fillMaxSize()) {
                         items(
                             items = state.viewData,
-                            key = { item -> item.getKey() },
                             contentType = { item -> item.getType() }
                         ) { item ->
                             LazyItem(views, item)

@@ -19,6 +19,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun PaginatedLazyColumn(
     modifier: Modifier = Modifier,
     loading: Boolean = false,
+    useItemKeys: Boolean = false,
     paginateOffset: Int = 1,
     listState: LazyListState = rememberLazyListState(),
     views: ImmutableList<ComposeView>,
@@ -36,9 +37,12 @@ fun PaginatedLazyColumn(
 
     LazyColumn(modifier = modifier, state = listState) {
 
+        val keyFactory: ((ComposeViewData) -> Any)? =
+            if (useItemKeys) { item -> item.getKey() } else null
+
         items(
             items = items,
-            key = { item -> item.getKey() },
+            key = keyFactory,
             contentType = { item -> item.getType() }
         ) { item ->
             LazyItem(views, item)

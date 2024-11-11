@@ -24,17 +24,19 @@ import com.amoustakos.rickandmorty.R
 import com.amoustakos.rickandmorty.compose.animation.list_enter.AnimatorEnter
 import com.amoustakos.rickandmorty.compose.animation.list_enter.NoopEnterAnimator
 import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
+import com.amoustakos.rickandmorty.compose.lists.ContainerPadding
+import com.amoustakos.rickandmorty.compose.lists.ContainerParams
 import com.amoustakos.rickandmorty.compose.theme.AppTheme
 import com.amoustakos.rickandmorty.compose.ui.views.lists.PaginatedLazyColumn
 import com.amoustakos.rickandmorty.features.common.views.ImageListingView
 import com.amoustakos.rickandmorty.features.common.views.ImageListingViewData
+import com.amoustakos.rickandmorty.features.common.views.bars.TitleOnly
 import com.amoustakos.rickandmorty.features.common.views.errors.DefaultErrorView
 import com.amoustakos.rickandmorty.features.common.views.loaders.DefaultFullPageLoader
 import com.amoustakos.rickandmorty.features.common.views.loaders.DefaultListLoader
 import com.amoustakos.rickandmorty.features.episodes.di.EpisodesEnterAnimation
 import com.amoustakos.rickandmorty.features.episodes.ui.EpisodesUiEvent.OnEpisodeClick
 import com.amoustakos.rickandmorty.features.episodes.ui.EpisodesUiState.State
-import com.amoustakos.rickandmorty.ui.bars.TitleOnly
 import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
 
@@ -89,6 +91,7 @@ class EpisodesUi @Inject constructor(
         PaginatedLazyColumn(
             modifier = Modifier.fillMaxSize(),
             loading = uiState.isLoadingNextPage,
+            useItemKeys = false,
             paginateOffset = model.paginateOffset,
             views = views,
             items = uiState.viewData,
@@ -115,7 +118,7 @@ class EpisodesUi @Inject constructor(
 
 @Stable
 class EpisodesUiState(
-    val paginateOffset: Int = 6, // Start paginating on last X items shown
+    val paginateOffset: Int = 6,
     val onPaginate: () -> Unit = {}
 ) {
     var state by mutableStateOf<State>(State.None)
@@ -175,6 +178,9 @@ private fun makeState() = EpisodesUiState().apply {
 }
 
 private fun dummyItem(id: Int): ImageListingViewData = ImageListingViewData(
+    containerParams = ContainerParams(
+        outerPadding = ContainerPadding(horizontal = 16.dp, vertical = 8.dp)
+    ),
     id = id,
     icon = "http://clipart-library.com/data_images/6103.png",
     title = "Title",

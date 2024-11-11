@@ -45,6 +45,7 @@ class LocalImageView : ComposeView {
                 .then(data.containerParams.size.toSizeModifier())
                 .then(data.containerParams.outerColors.toBackgroundModifier())
                 .then(data.containerParams.outerPadding.toPaddingModifier())
+                .then(data.containerParams.extraModifiers.toSafeModifier())
         ) {
             Image(
                 modifier = Modifier

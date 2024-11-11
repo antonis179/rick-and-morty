@@ -17,6 +17,7 @@ import com.amoustakos.rickandmorty.compose.lists.models.ColorAttribute
 import com.amoustakos.rickandmorty.compose.lists.models.TextAttribute
 import com.amoustakos.rickandmorty.compose.lists.toBackgroundModifier
 import com.amoustakos.rickandmorty.compose.lists.toPaddingModifier
+import com.amoustakos.rickandmorty.compose.lists.toSafeModifier
 import com.amoustakos.rickandmorty.compose.lists.toSizeModifier
 import com.amoustakos.rickandmorty.compose.theme.AppTheme
 import com.amoustakos.rickandmorty.compose.theme.typography
@@ -28,7 +29,6 @@ data class GenericTextViewData(
     val containerParams: ContainerParams = ContainerParams(),
     val textAttribute: TextAttribute
 ) : ComposeViewData {
-
     private val _key by lazy { UUID.randomUUID().toString() }
     override fun getKey() = _key
 }
@@ -47,21 +47,20 @@ class GenericTextView : ComposeView {
                 .then(data.containerParams.size.toSizeModifier(Modifier.fillMaxWidth(), null))
                 .then(data.containerParams.outerColors.toBackgroundModifier())
                 .then(data.containerParams.outerPadding.toPaddingModifier())
+                .then(data.containerParams.extraModifiers.toSafeModifier())
         ) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
                     .then(data.containerParams.innerColors.toBackgroundModifier())
                     .then(data.containerParams.innerPadding.toPaddingModifier()),
-                text = data.textAttribute.text,
+                text = data.textAttribute.text(),
                 style = data.textAttribute.styleWithColorAttribute(),
                 overflow = data.textAttribute.overflow ?: TextOverflow.Visible,
                 maxLines = data.textAttribute.maxLines ?: Int.MAX_VALUE
             )
         }
     }
-
-
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -70,7 +69,7 @@ private fun PreviewGenericTextView() = AppTheme {
     GenericTextView().View(
         data = GenericTextViewData(
             textAttribute = TextAttribute(
-                text = "Text",
+                text = {"Text"},
                 style = typography.titleMedium,
                 color = ColorAttribute.OnBackground
             )

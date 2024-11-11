@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.amoustakos.rickandmorty.R
 import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
 import com.amoustakos.rickandmorty.compose.lists.ContainerPadding
 import com.amoustakos.rickandmorty.compose.lists.ContainerParams
@@ -44,27 +46,18 @@ class CharacterDetailsViewDataTransformer @Inject constructor(): ViewDataTransfo
             )
         )
 
-        val title = """
-                ${model.species}, ${model.gender}
-            """.trimIndent()
-
         data += GenericTextViewData(
             containerParams = ContainerParams(
                 size = ContainerSize(width = Modifier.fillMaxWidth()),
                 outerPadding = ContainerPadding(top = 16.dp, start = 16.dp, end = 16.dp)
             ),
             textAttribute = TextAttribute(
-                text = title,
+                text = { "${model.species}, ${model.gender}" },
                 overflow = TextOverflow.Ellipsis,
                 style = typography.titleLarge,
                 color = OnBackground
             )
         )
-
-        val description = """
-                Origin: ${model.origin.name}
-                Current location: ${model.location.name}
-            """.trimIndent()
 
         data += GenericTextViewData(
             containerParams = ContainerParams(
@@ -72,16 +65,19 @@ class CharacterDetailsViewDataTransformer @Inject constructor(): ViewDataTransfo
                 outerPadding = ContainerPadding(top = 32.dp, start = 16.dp, end = 16.dp)
             ),
             textAttribute = TextAttribute(
-                text = description,
+                text = {
+                    """
+                        ${stringResource(id = R.string.character_origin, model.origin.name)}
+                        ${stringResource(id = R.string.character_location, model.location.name)}
+                    """.trimIndent()
+                },
                 overflow = TextOverflow.Ellipsis,
                 style = typography.titleMedium,
                 color = OnBackground
             )
         )
 
-
         return data
     }
-
 
 }

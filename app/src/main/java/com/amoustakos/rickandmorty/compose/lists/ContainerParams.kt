@@ -9,7 +9,6 @@ data class ContainerParams(
     val innerPadding: ContainerPadding? = null,
     val outerColors: ContainerColors? = null,
     val innerColors: ContainerColors? = null,
-    val shape: Modifier? = null,
     val size: ContainerSize? = null,
     val extraModifiers: Modifier? = null
 )

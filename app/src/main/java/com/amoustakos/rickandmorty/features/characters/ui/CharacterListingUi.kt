@@ -25,9 +25,9 @@ import com.amoustakos.rickandmorty.compose.ui.views.lists.LazyItem
 import com.amoustakos.rickandmorty.features.characters.ui.CharacterListingUiEvent.OnCharacterClick
 import com.amoustakos.rickandmorty.features.characters.ui.CharactersUiState.State
 import com.amoustakos.rickandmorty.features.common.views.ImageListingView
+import com.amoustakos.rickandmorty.features.common.views.bars.TitleOnly
 import com.amoustakos.rickandmorty.features.common.views.errors.DefaultErrorView
 import com.amoustakos.rickandmorty.features.common.views.loaders.DefaultFullPageLoader
-import com.amoustakos.rickandmorty.ui.bars.TitleOnly
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import javax.inject.Inject
@@ -73,7 +73,6 @@ class CharacterListingUi @Inject constructor() {
                     LazyColumn(Modifier.fillMaxSize()) {
                         items(
                             items = state.viewData,
-                            key = { item -> item.getKey() },
                             contentType = { item -> item.getType() }
                         ) { item ->
                             LazyItem(views, item)

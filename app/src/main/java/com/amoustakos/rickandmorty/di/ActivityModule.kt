@@ -15,6 +15,6 @@ interface ActivityModule {
 
     @Binds
     @ActivityScoped
-    fun bind(transitions: DefaultTransitions): Transitions
+    fun bindTransitions(transitions: DefaultTransitions): Transitions
 
 }

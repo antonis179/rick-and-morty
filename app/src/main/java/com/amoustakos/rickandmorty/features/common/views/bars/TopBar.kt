@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.amoustakos.rickandmorty.ui.bars
+package com.amoustakos.rickandmorty.features.common.views.bars
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text

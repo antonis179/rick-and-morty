@@ -29,6 +29,12 @@ import com.amoustakos.rickandmorty.compose.animation.list_enter.HasEnterAnimatio
 import com.amoustakos.rickandmorty.compose.animation.list_enter.NoopEnterAnimator
 import com.amoustakos.rickandmorty.compose.lazy.ComposeView
 import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
+import com.amoustakos.rickandmorty.compose.lists.ContainerPadding
+import com.amoustakos.rickandmorty.compose.lists.ContainerParams
+import com.amoustakos.rickandmorty.compose.lists.toBackgroundModifier
+import com.amoustakos.rickandmorty.compose.lists.toPaddingModifier
+import com.amoustakos.rickandmorty.compose.lists.toSafeModifier
+import com.amoustakos.rickandmorty.compose.lists.toSizeModifier
 import com.amoustakos.rickandmorty.compose.theme.AppTheme
 import com.amoustakos.rickandmorty.compose.theme.typography
 import java.util.UUID
@@ -36,6 +42,7 @@ import java.util.UUID
 
 @Stable
 class ImageListingViewData(
+    val containerParams: ContainerParams = ContainerParams(),
     val id: Int,
     val icon: String,
     val title: String,
@@ -61,8 +68,10 @@ class ImageListingView(
         AnimateIfNeeded(enterAnimator = enterAnimator, data = data) {
             Card(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                    .then(data.containerParams.size.toSizeModifier(Modifier.fillMaxWidth(), null))
+                    .then(data.containerParams.outerColors.toBackgroundModifier())
+                    .then(data.containerParams.outerPadding.toPaddingModifier())
+                    .then(data.containerParams.extraModifiers.toSafeModifier())
                     .clickable { onClick(data.id) },
                 shape = RoundedCornerShape(8.dp)
             ) {
@@ -73,6 +82,7 @@ class ImageListingView(
 
     @Composable
     private fun AnimateIfNeeded(
+        modifier: Modifier = Modifier,
         enterAnimator: AnimatorEnter? = null,
         data : HasEnterAnimation,
         view: @Composable () -> Unit
@@ -80,7 +90,7 @@ class ImageListingView(
         if (enterAnimator == null) {
             view()
         } else {
-            enterAnimator.Animate(data = data, modifier = Modifier) {
+            enterAnimator.Animate(data = data, modifier = modifier) {
                 view()
             }
         }
@@ -158,6 +168,9 @@ private fun PreviewEpisodeUiViewLight() = AppTheme {
 }
 
 private fun episodeUiPreviewViewData() = ImageListingViewData(
+    containerParams = ContainerParams(
+        outerPadding = ContainerPadding(horizontal = 16.dp, vertical = 8.dp)
+    ),
     id = 0,
     icon = "http://clipart-library.com/data_images/6103.png",
     title = "Title",

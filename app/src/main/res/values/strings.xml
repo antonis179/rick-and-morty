@@ -8,4 +8,8 @@
 
 	<string name="error_message_default">Oops! Something went wrong.</string>
 
+	<!-- Characters -->
+	<string name="character_origin">Origin: %1$s</string>
+	<string name="character_location">Current location: %1$s</string>
+
 </resources>

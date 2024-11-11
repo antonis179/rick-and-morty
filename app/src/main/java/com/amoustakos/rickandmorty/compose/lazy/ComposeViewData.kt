@@ -16,7 +16,7 @@ interface ComposeViewData {
      * Unique identifier for lazy column/row
      * Warning: If this is not unique the app will crash
      */
-    fun getKey(): Any = hashCode()
+    fun getKey(): Any
 }
 
 

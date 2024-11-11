@@ -10,13 +10,18 @@ import com.amoustakos.rickandmorty.compose.lazy.ComposeViewData
 import com.amoustakos.rickandmorty.compose.lists.ContainerParams
 import com.amoustakos.rickandmorty.compose.lists.toBackgroundModifier
 import com.amoustakos.rickandmorty.compose.lists.toPaddingModifier
+import com.amoustakos.rickandmorty.compose.lists.toSafeModifier
 import com.amoustakos.rickandmorty.compose.lists.toSizeModifier
+import java.util.UUID
 
 
 @Immutable
 data class HorizontalLineViewData(
     val containerParams: ContainerParams = ContainerParams()
-) : ComposeViewData
+) : ComposeViewData {
+    private val _key by lazy { UUID.randomUUID().toString() }
+    override fun getKey() = _key
+}
 
 
 class HorizontalLineView : ComposeView {
@@ -32,6 +37,7 @@ class HorizontalLineView : ComposeView {
                 .then(data.containerParams.size.toSizeModifier(Modifier.fillMaxWidth(), null))
                 .then(data.containerParams.outerColors.toBackgroundModifier())
                 .then(data.containerParams.outerPadding.toPaddingModifier())
+                .then(data.containerParams.extraModifiers.toSafeModifier())
         )
     }
 
