@@ -11,7 +11,7 @@ import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchChara
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchCharactersRequest
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharacter
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharactersResponse
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -29,7 +29,7 @@ class FetchCharacterUseCaseImpl @Inject constructor(
     private val charactersErrorHandler: ApiErrorHandler<ApiCharactersResponse, CharactersResponse>,
     private val domainTransformer: DomainTransformer<ApiCharacter, DomainCharacter>,
     private val charactersDomainTransformer: DomainTransformer<ApiCharactersResponse, CharactersResponse>,
-    private val dispatchers: DispatchersWrapper
+    private val dispatchers: DispatcherProvider
 ): FetchCharacterUseCase {
 
     override suspend fun fetchAll(): DomainResponse<CharactersResponse> {

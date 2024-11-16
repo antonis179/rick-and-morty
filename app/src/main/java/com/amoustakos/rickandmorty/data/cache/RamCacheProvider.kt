@@ -1,13 +1,13 @@
 package com.amoustakos.rickandmorty.data.cache
 
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
 class RamCacheProvider @Inject constructor(
-    private val dispatchersWrapper: DispatchersWrapper
+    private val dispatcherProvider: DispatcherProvider
 ) : CacheProvider {
 
     @Suppress("UNCHECKED_CAST")
@@ -17,7 +17,7 @@ class RamCacheProvider @Inject constructor(
     override fun store(keyProvider: CacheKeyProvider<*>, data: Any?): Boolean {
         val key = keyProvider.cacheKey() ?: return false
         val obj = TimedData(
-            dispatchersWrapper,
+            dispatcherProvider,
             System.currentTimeMillis(),
             data
         )

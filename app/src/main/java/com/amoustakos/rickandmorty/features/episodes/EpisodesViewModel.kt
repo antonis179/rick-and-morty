@@ -15,7 +15,7 @@ import com.amoustakos.rickandmorty.features.episodes.usecases.FetchEpisodesUseCa
 import com.amoustakos.rickandmorty.navigation.PopRouteData
 import com.amoustakos.rickandmorty.navigation.navigateSingleTop
 import com.amoustakos.rickandmorty.ui.transformers.ViewDataTransformer
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import com.amoustakos.rickandmorty.utils.updateInMain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -31,7 +31,7 @@ class EpisodesViewModel @Inject constructor(
     private val fetchEpisodesUseCase: FetchEpisodesUseCase,
     private val fetchCharacterUseCase: FetchCharacterUseCase,
     private val transformer: ViewDataTransformer<EpisodesResponse>,
-    private val dispatchers: DispatchersWrapper
+    private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
     val uiState = EpisodesUiState(onPaginate = this::fetch)

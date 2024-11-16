@@ -6,7 +6,7 @@ import com.amoustakos.rickandmorty.di.annotations.MainDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-data class DispatchersWrapper @Inject constructor(
+data class DispatcherProvider @Inject constructor(
     @IoDispatcher val io: CoroutineDispatcher,
     @DefaultDispatcher val default: CoroutineDispatcher,
     @MainDispatcher val main: CoroutineDispatcher

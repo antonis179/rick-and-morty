@@ -14,7 +14,7 @@ import com.amoustakos.rickandmorty.features.characters.usecases.FetchCharacterUs
 import com.amoustakos.rickandmorty.navigation.PopRouteData
 import com.amoustakos.rickandmorty.navigation.navigateSingleTop
 import com.amoustakos.rickandmorty.ui.transformers.ViewDataTransformer
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import com.amoustakos.rickandmorty.utils.updateInMain
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -30,7 +30,7 @@ import kotlinx.coroutines.withContext
 class CharacterListingViewModel @AssistedInject constructor(
     private val fetchCharacterUseCase: FetchCharacterUseCase,
     private val transformer: ViewDataTransformer<CharactersResponse>,
-    private val dispatchers: DispatchersWrapper,
+    private val dispatchers: DispatcherProvider,
     @Assisted private val characterIds: List<String>
 ) : ViewModel() {
 

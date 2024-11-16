@@ -8,7 +8,7 @@ import com.amoustakos.rickandmorty.data.network.api.ApiErrorHandler
 import com.amoustakos.rickandmorty.data.network.api.RickAndMortyDataProvider
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchEpisodesRequest
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiEpisodesResponse
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class FetchEpisodesUseCaseImpl @Inject constructor(
     private val dataProvider: RickAndMortyDataProvider,
     private val errorHandler: ApiErrorHandler<ApiEpisodesResponse, EpisodesResponse>,
     private val domainTransformer: DomainTransformer<ApiEpisodesResponse, EpisodesResponse>,
-    private val dispatchers: DispatchersWrapper
+    private val dispatchers: DispatcherProvider
 ): FetchEpisodesUseCase {
 
     override suspend fun fetch(page: Int): DomainResponse<EpisodesResponse> {

@@ -13,7 +13,7 @@ import com.amoustakos.rickandmorty.features.characters.usecases.FetchCharacterUs
 import com.amoustakos.rickandmorty.features.characters.usecases.FetchCharacterUseCaseImpl
 import com.amoustakos.rickandmorty.features.episodes.usecases.FetchEpisodesUseCase
 import com.amoustakos.rickandmorty.features.episodes.usecases.FetchEpisodesUseCaseImpl
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ interface UseCaseModule {
             dataProvider: RickAndMortyDataProvider,
             errorHandler: ApiErrorHandler<ApiEpisodesResponse, EpisodesResponse>,
             domainTransformer: DomainTransformer<ApiEpisodesResponse, EpisodesResponse>,
-            dispatchers: DispatchersWrapper
+            dispatchers: DispatcherProvider
         ): FetchEpisodesUseCase = FetchEpisodesUseCaseImpl(
             dataProvider,
             errorHandler,
@@ -49,7 +49,7 @@ interface UseCaseModule {
             charactersErrorHandler: ApiErrorHandler<ApiCharactersResponse, CharactersResponse>,
             domainTransformer: DomainTransformer<ApiCharacter, DomainCharacter>,
             charactersDomainTransformer: DomainTransformer<ApiCharactersResponse, CharactersResponse>,
-            dispatchers: DispatchersWrapper
+            dispatchers: DispatcherProvider
         ): FetchCharacterUseCase = FetchCharacterUseCaseImpl(
             dataProvider,
             errorHandler,

@@ -1,6 +1,6 @@
 package com.amoustakos.rickandmorty.data.cache
 
-import com.amoustakos.rickandmorty.utils.DispatchersWrapper
+import com.amoustakos.rickandmorty.utils.DispatcherProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
@@ -12,12 +12,12 @@ import kotlin.time.Duration.Companion.seconds
 
 
 data class TimedData<Data>(
-    private val dispatchersWrapper: DispatchersWrapper,
+    private val dispatcherProvider: DispatcherProvider,
     val storedTime: Long,
     val data: Data
 ): CoroutineScope {
 
-    override val coroutineContext: CoroutineContext = dispatchersWrapper.io
+    override val coroutineContext: CoroutineContext = dispatcherProvider.io
 
     fun initTimer(time: Int, onDelete: () -> Unit) {
         timer(time.seconds).onCompletion {
