@@ -31,7 +31,7 @@ class NavActivity : BaseActivity() {
                 val nv = rememberNavController()
                 NavHost(
                     navController = nv,
-                    startDestination = EpisodesFeatureNavigator.EpisodesFeature
+                    startDestination = episodes.route
                 ) {
                     episodes.navigation(this, nv)
                     characters.navigation(this, nv)

@@ -1,6 +1,6 @@
 apply plugin: module_plugins.application
 apply plugin: module_plugins.kotlin
-apply plugin: module_plugins.kapt
+apply plugin: module_plugins.ksp
 apply plugin: module_plugins.kotlinParcelize
 apply plugin: module_plugins.hilt
 apply plugin: module_plugins.compose_compiler
@@ -28,11 +28,6 @@ hilt {
 	enableAggregatingTask = true
 }
 
-kapt {
-	useBuildCache true
-	correctErrorTypes true
-}
-
 dependencies {
 	implementation libs_support.values()
 
@@ -46,6 +41,6 @@ dependencies {
 
 	implementation libs_di.values()
 	implementation libs_networking.values()
-	kapt annotation_processors.values()
+	ksp annotation_processors.values()
 	implementation libs_navigation.values()
 }

@@ -10,7 +10,7 @@ project.ext {
 			application         : 'com.android.application',
 			library             : 'com.android.library',
 			kotlin              : 'kotlin-android',
-			kapt                : 'kotlin-kapt',
+			ksp                 : 'com.google.devtools.ksp',
 			kotlinParcelize     : 'kotlin-parcelize',
 			dependencyUpdates   : 'com.github.ben-manes.versions',
 			hilt                : 'dagger.hilt.android.plugin',
@@ -21,10 +21,10 @@ project.ext {
 	plugin_versions = [
 			android       : '8.7.2',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
-			kotlin_bom    : '2.0.20',
+			kotlin_bom    : '2.1.0',
 			gradleVersions: '0.51.0',
-			hilt          : '2.52',
-			nav_version   : '2.8.1',
+			hilt          : '2.53.1',
+			nav_version   : '2.8.4',
 	]
 
 	gradle_plugins = [
@@ -38,7 +38,6 @@ project.ext {
 
 	lib_versions = [
 			//Support
-			androidx_core            : '1.12.0',
 			androidx_activity        : '1.9.0',
 
 			lifecycle                : '2.8.0',
@@ -55,20 +54,19 @@ project.ext {
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom              : '2024.10.00',
-			compose_accompanist      : '0.28.0',
-			compose_constraint_layout: '1.0.1',
+			compose_bom              : '2024.12.01',
+			compose_constraint_layout: '1.1.0',
 			coil                     : '2.7.0',
 
 			// Navigation graph
 			hilt_nav_version         : '1.2.0',
 
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
-			coroutines_bom           : '1.8.1',
+			coroutines_bom           : '1.9.0',
 			kotlinImmutable          : '0.3.8',
 			serialization            : '1.7.3',
 
-			media3_version           : '1.4.1'
+			media3_version           : '1.5.0'
 	]
 
 	annotation_processors = [
@@ -85,7 +83,6 @@ project.ext {
 	]
 
 	libs_support = [
-			androidx_core             : "androidx.core:core-ktx:${lib_versions.androidx_core}",
 			androidx_activity         : "androidx.activity:activity-ktx:${lib_versions.androidx_activity}",
 
 			//Lifecycle

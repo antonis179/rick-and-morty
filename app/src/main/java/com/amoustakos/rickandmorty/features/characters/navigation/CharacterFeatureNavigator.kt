@@ -16,17 +16,18 @@ import kotlin.collections.forEach
 class CharacterFeatureNavigator @Inject constructor(
     characterListingScreenNavigator: CharacterListingScreenNavigator,
     characterDetailsScreenNavigator: CharacterDetailsScreenNavigator,
-    private val screenDummyNavigator: ScreenDummyNavigator,
+    private val screenDummyNavigator: ScreenDummyNavigator
 ) : FeatureNavigator {
 
-    override val screens: List<ScreenNavigator> = listOf(
+    val screens: List<ScreenNavigator> = listOf(
         screenDummyNavigator,
         characterListingScreenNavigator,
         characterDetailsScreenNavigator
     )
+    override val route: Any = CharacterFeature
 
     override fun navigation(graph: NavGraphBuilder, nv: NavHostController) {
-        graph.navigation<EpisodesFeature>(startDestination = screenDummyNavigator.route()) {
+        graph.navigation<CharacterFeature>(startDestination = screenDummyNavigator.route()) {
             screens.forEach {
                 it.destination(this, nv)
             }
@@ -34,5 +35,5 @@ class CharacterFeatureNavigator @Inject constructor(
     }
 
     @Serializable
-    data object EpisodesFeature
+    data object CharacterFeature
 }
