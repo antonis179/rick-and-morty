@@ -12,7 +12,14 @@ class RamCacheProvider @Inject constructor(
 
     @Suppress("UNCHECKED_CAST")
     @Throws
-    override fun <T> get(keyProvider: CacheKeyProvider<*>) = cache[keyProvider.cacheKey()]?.data as T
+    override fun <T> get(keyProvider: CacheKeyProvider<*>): T? {
+        val key = keyProvider.cacheKey() ?: throw IllegalArgumentException("Key cannot be null")
+        val result = cache[key]
+
+        return runCatching {
+            result as T
+        }.getOrNull()
+    }
 
     override fun store(keyProvider: CacheKeyProvider<*>, data: Any?): Boolean {
         val key = keyProvider.cacheKey() ?: return false
