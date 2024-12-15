@@ -9,6 +9,7 @@ import com.amoustakos.rickandmorty.data.network.api.RickAndMortyDataProvider
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchEpisodesRequest
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiEpisodesResponse
 import com.amoustakos.rickandmorty.utils.DispatcherProvider
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -38,6 +39,7 @@ class FetchEpisodesUseCaseImpl @Inject constructor(
                     }
                 }
             }.getOrElse {
+                ensureActive()
                 errorHandler.handleException(it)
             }
         }

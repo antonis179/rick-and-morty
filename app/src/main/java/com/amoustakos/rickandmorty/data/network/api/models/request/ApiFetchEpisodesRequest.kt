@@ -7,9 +7,6 @@ data class ApiFetchEpisodesRequest(
     val page: Int
 ) : CacheKeyProvider<String> {
 
-    override fun cacheKey() = "$KEY_PREFIX$page"
+    override fun cacheKey() = "${this::class.simpleName}/$page"
 
-    companion object {
-        private const val KEY_PREFIX = "episode/"
-    }
 }

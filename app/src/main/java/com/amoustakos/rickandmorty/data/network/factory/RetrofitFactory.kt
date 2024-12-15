@@ -107,16 +107,13 @@ object RetrofitFactory {
 
         if (!cacheOptionsValid) return
 
-        opts.cacheSubDirectory?.let { subDir ->
-            val cacheSize: Long =
-                opts.cacheSizeMb ?: throw NullPointerException("Cache size not specified")
-            cache(
-                Cache(
-                    File(opts.cacheDir, subDir),
-                    cacheSize
-                )
+        val cacheSize: Long = opts.cacheSizeMb
+        cache(
+            Cache(
+                File(opts.cacheDir, opts.cacheSubDirectory),
+                cacheSize
             )
-        }
+        )
     }
 
 }

@@ -4,12 +4,9 @@ import com.amoustakos.rickandmorty.data.cache.CacheKeyProvider
 
 
 data class ApiFetchCharactersByIdsRequest(
-    val ids: List<String>
+    val ids: String
 ) : CacheKeyProvider<String> {
 
-    override fun cacheKey() ="$KEY_PREFIX/${ids.joinToString(",")}"
+    override fun cacheKey() ="${this::class.simpleName}/${ids}"
 
-    companion object {
-        private const val KEY_PREFIX = "characters_by_ids/"
-    }
 }

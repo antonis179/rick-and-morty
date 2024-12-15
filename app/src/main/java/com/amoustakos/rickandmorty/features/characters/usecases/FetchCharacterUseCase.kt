@@ -12,6 +12,7 @@ import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchChara
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharacter
 import com.amoustakos.rickandmorty.data.network.api.models.response.ApiCharactersResponse
 import com.amoustakos.rickandmorty.utils.DispatcherProvider
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -47,6 +48,7 @@ class FetchCharacterUseCaseImpl @Inject constructor(
                     }
                 }
             }.getOrElse {
+                ensureActive()
                 charactersErrorHandler.handleException(it)
             }
         }
@@ -55,7 +57,11 @@ class FetchCharacterUseCaseImpl @Inject constructor(
     override suspend fun fetch(ids: List<String>): DomainResponse<CharactersResponse> {
         return withContext(dispatchers.io) {
             runCatching {
-                val response = dataProvider.fetchCharacters(ApiFetchCharactersByIdsRequest(ids))
+                val response = dataProvider.fetchCharacters(
+                    ApiFetchCharactersByIdsRequest(
+                        ids.joinToString(",").replace(" ", "")
+                    )
+                )
                 if (charactersErrorHandler.hasError(response)) {
                     charactersErrorHandler.handleError(response)
                 } else {
@@ -67,6 +73,7 @@ class FetchCharacterUseCaseImpl @Inject constructor(
                     }
                 }
             }.getOrElse {
+                ensureActive()
                 charactersErrorHandler.handleException(it)
             }
         }
@@ -87,6 +94,7 @@ class FetchCharacterUseCaseImpl @Inject constructor(
                     }
                 }
             }.getOrElse {
+                ensureActive()
                 errorHandler.handleException(it)
             }
         }

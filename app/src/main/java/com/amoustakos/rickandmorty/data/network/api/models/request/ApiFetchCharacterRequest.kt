@@ -7,9 +7,6 @@ data class ApiFetchCharacterRequest(
     val id: Int
 ) : CacheKeyProvider<String> {
 
-    override fun cacheKey() = "$KEY_PREFIX$id"
+    override fun cacheKey() = "${this::class.simpleName}/$id"
 
-    companion object {
-        private const val KEY_PREFIX = "character/"
-    }
 }

@@ -1,7 +1,6 @@
 package com.amoustakos.rickandmorty.data.network.api
 
 import com.amoustakos.rickandmorty.data.cache.RamCacheProvider
-import com.amoustakos.rickandmorty.data.network.DataProvider
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchCharacterRequest
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchCharactersByIdsRequest
 import com.amoustakos.rickandmorty.data.network.api.models.request.ApiFetchCharactersRequest
@@ -44,9 +43,9 @@ interface RickAndMortyDataProvider {
 }
 
 class RickAndMortyDataProviderImpl @Inject constructor(
-    override val api: RickAndMortyApi,
+    private val api: RickAndMortyApi,
     private val cache: RamCacheProvider,
-) : RickAndMortyDataProvider, DataProvider<RickAndMortyApi> {
+) : RickAndMortyDataProvider {
 
     override suspend fun fetchEpisodes(req: ApiFetchEpisodesRequest): Response<ApiEpisodesResponse> {
         val cachedItem: Response<ApiEpisodesResponse>? = cache.get(req)
@@ -90,9 +89,7 @@ class RickAndMortyDataProviderImpl @Inject constructor(
         return if (cachedItem != null) {
             cachedItem
         } else {
-            val response = api.fetchCharactersById(
-                req.ids.joinToString(",").replace(" ", "")
-            )
+            val response = api.fetchCharactersById(req.ids)
             val tempResp = Response.success(ApiCharactersResponse(results = response.body()))
             cache.store(req, tempResp)
             tempResp

@@ -5,9 +5,6 @@ import com.amoustakos.rickandmorty.data.cache.CacheKeyProvider
 
 class ApiFetchCharactersRequest : CacheKeyProvider<String> {
 
-    override fun cacheKey() = KEY_PREFIX
+    override fun cacheKey() = this::class.simpleName ?: "ApiFetchCharactersRequest"
 
-    companion object {
-        private const val KEY_PREFIX = "characters/"
-    }
 }
