@@ -19,7 +19,7 @@ project.ext {
 	]
 
 	plugin_versions = [
-			android       : '8.7.3',
+			android       : '8.8.0',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
 			kotlin_bom    : '2.1.0',
 			gradleVersions: '0.51.0',
