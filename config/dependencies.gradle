@@ -19,11 +19,11 @@ project.ext {
 	]
 
 	plugin_versions = [
-			android       : '8.8.0',
+			android       : '8.8.1',
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
 			kotlin_bom    : '2.1.0',
-			gradleVersions: '0.51.0',
-			hilt          : '2.53.1',
+			gradleVersions: '0.52.0',
+			hilt          : '2.55',
 			nav_version   : '2.8.4',
 	]
 
@@ -38,7 +38,7 @@ project.ext {
 
 	lib_versions = [
 			//Support
-			androidx_activity        : '1.9.0',
+			androidx_activity        : '1.10.0',
 
 			lifecycle                : '2.8.0',
 			preferences              : '1.1.0',
@@ -54,7 +54,7 @@ project.ext {
 
 			// Compose
 			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom              : '2024.12.01',
+			compose_bom              : '2025.02.00',
 			compose_constraint_layout: '1.1.0',
 			coil                     : '2.7.0',
 
@@ -62,9 +62,9 @@ project.ext {
 			hilt_nav_version         : '1.2.0',
 
 			//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
-			coroutines_bom           : '1.9.0',
+			coroutines_bom           : '1.10.1',
 			kotlinImmutable          : '0.3.8',
-			serialization            : '1.7.3',
+			serialization            : '1.8.0',
 
 			media3_version           : '1.5.0'
 	]
