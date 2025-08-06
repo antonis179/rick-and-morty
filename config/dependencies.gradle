@@ -1,150 +1,15 @@
 project.ext {
 
-	repos = {
-		google()
-		gradlePluginPortal()
-		mavenCentral()
-	}
-
 	module_plugins = [
 			application         : 'com.android.application',
 			library             : 'com.android.library',
 			kotlin              : 'kotlin-android',
 			ksp                 : 'com.google.devtools.ksp',
 			kotlinParcelize     : 'kotlin-parcelize',
-			dependencyUpdates   : 'com.github.ben-manes.versions',
 			hilt                : 'dagger.hilt.android.plugin',
 			compose_compiler    : 'org.jetbrains.kotlin.plugin.compose',
 			kotlin_serialization: 'org.jetbrains.kotlin.plugin.serialization'
 	]
 
-	plugin_versions = [
-			android       : '8.9.2',
-			//https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-bom
-			kotlin_bom    : '2.1.20',
-			gradleVersions: '0.52.0',
-			hilt          : '2.56.2',
-			nav_version   : '2.8.9',
-	]
-
-	gradle_plugins = [
-			android         : "com.android.tools.build:gradle:${plugin_versions.android}",
-			kotlin          : "org.jetbrains.kotlin:kotlin-gradle-plugin:${plugin_versions.kotlin_bom}",
-			gradleVersions  : "com.github.ben-manes:gradle-versions-plugin:${plugin_versions.gradleVersions}",
-			hilt            : "com.google.dagger:hilt-android-gradle-plugin:${plugin_versions.hilt}",
-			navigation      : "androidx.navigation:navigation-safe-args-gradle-plugin:${plugin_versions.nav_version}",
-			compose_compiler: "org.jetbrains.kotlin:compose-compiler-gradle-plugin:${plugin_versions.kotlin_bom}"
-	]
-
-	lib_versions = [
-			//Support
-			androidx_activity        : '1.10.1',
-
-			lifecycle                : '2.8.0',
-			preferences              : '1.1.0',
-
-			gson                     : '2.11.0',
-
-			//Net
-			retrofit                 : '2.11.0',
-			okhttp                   : '4.12.0',
-
-			//Logging
-			timber                   : '5.0.1',
-
-			// Compose
-			// https://developer.android.com/jetpack/compose/bom/bom-mapping
-			compose_bom              : '2025.04.01',
-			compose_constraint_layout: '1.1.1',
-			coil                     : '2.7.0',
-
-			// Navigation graph
-			hilt_nav_version         : '1.2.0',
-
-			//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
-			coroutines_bom           : '1.10.2',
-			kotlinImmutable          : '0.3.8',
-			serialization            : '1.8.1',
-
-			media3_version           : '1.6.1'
-	]
-
-	annotation_processors = [
-			lifecycle   : "androidx.lifecycle:lifecycle-compiler:${lib_versions.lifecycle}",
-			hiltCompiler: "com.google.dagger:hilt-android-compiler:${plugin_versions.hilt}"
-	]
-
-	libs_di = [
-			hilt: "com.google.dagger:hilt-android:${plugin_versions.hilt}"
-	]
-
-	libs_mapping = [
-			gson: "com.google.code.gson:gson:${lib_versions.gson}"
-	]
-
-	libs_support = [
-			androidx_activity         : "androidx.activity:activity-ktx:${lib_versions.androidx_activity}",
-
-			//Lifecycle
-			lifecycle_java8           : "androidx.lifecycle:lifecycle-common-java8:${lib_versions.lifecycle}",
-			lifecycle_runtime         : "androidx.lifecycle:lifecycle-runtime-ktx:${lib_versions.lifecycle}",
-			lifecycle_view_model      : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lib_versions.lifecycle}",
-			lifecycle_view_model_state: "androidx.lifecycle:lifecycle-viewmodel-savedstate:${lib_versions.lifecycle}"
-	]
-
-	libs_bom = [
-			// Compose (ref: https://developer.android.com/jetpack/compose/bom/bom-mapping)
-			compose_bom   : "androidx.compose:compose-bom:${lib_versions.compose_bom}",
-			kotlin_bom    : "org.jetbrains.kotlin:kotlin-bom:${plugin_versions.kotlin_bom}",
-			coroutines_bom: "org.jetbrains.kotlinx:kotlinx-coroutines-bom:${lib_versions.coroutines_bom}"
-	]
-
-	libs_compose = [
-			foundation               : 'androidx.compose.foundation:foundation',
-			foundation_layout        : 'androidx.compose.foundation:foundation-layout',
-			material3                : 'androidx.compose.material3:material3',
-			runtime                  : 'androidx.compose.runtime:runtime',
-			runtime_livedata         : 'androidx.compose.runtime:runtime-livedata',
-			ui                       : 'androidx.compose.ui:ui',
-			ui_tooling               : 'androidx.compose.ui:ui-tooling',
-			ui_tooling_preview       : 'androidx.compose.ui:ui-tooling-preview',
-			ui_tooling_data          : 'androidx.compose.ui:ui-tooling-data',
-			ui_viewbinding           : 'androidx.compose.ui:ui-viewbinding',
-			animation                : 'androidx.compose.animation:animation',
-			animation_core           : 'androidx.compose.animation:animation-core',
-			animation_graphics       : 'androidx.compose.animation:animation-graphics',
-			constraint_layout_compose: "androidx.constraintlayout:constraintlayout-compose:${lib_versions.compose_constraint_layout}"
-	]
-
-	libs_navigation = [
-			nav_graph_compose: "androidx.navigation:navigation-compose:${plugin_versions.nav_version}",
-			nav_graph_ui     : "androidx.navigation:navigation-ui-ktx:${plugin_versions.nav_version}",
-			nav_hilt_compose : "androidx.hilt:hilt-navigation-compose:${lib_versions.hilt_nav_version}"
-	]
-
-	libs_networking = [
-			retrofit      : "com.squareup.retrofit2:retrofit:${lib_versions.retrofit}",
-			retrofit_gson : "com.squareup.retrofit2:converter-gson:${lib_versions.retrofit}",
-			okhttp_logging: "com.squareup.okhttp3:logging-interceptor:${lib_versions.okhttp}",
-			okhttp        : "com.squareup.okhttp3:okhttp:${lib_versions.okhttp}"
-	]
-
-	libs_image = [
-			coil      : "io.coil-kt:coil-compose:${lib_versions.coil}",
-			coil_gif  : "io.coil-kt:coil-gif:${lib_versions.coil}",
-			media3_ui : "androidx.media3:media3-ui:${lib_versions.media3_version}",
-			media3_exo: "androidx.media3:media3-exoplayer:${lib_versions.media3_version}"
-	]
-
-	libs_logging = [
-			timber: "com.jakewharton.timber:timber:${lib_versions.timber}"
-	]
-
-	libs_kotlin = [
-			kotlin_stdlib_java8: "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
-			coroutines         : "org.jetbrains.kotlinx:kotlinx-coroutines-android",
-			immmutable         : "org.jetbrains.kotlinx:kotlinx-collections-immutable:${lib_versions.kotlinImmutable}",
-			serialization      : "org.jetbrains.kotlinx:kotlinx-serialization-json:${lib_versions.serialization}"
-	]
 }
 

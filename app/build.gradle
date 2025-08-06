@@ -29,18 +29,60 @@ hilt {
 }
 
 dependencies {
-	implementation libs_support.values()
 
-	//Compose
-	libs_bom.values().every { bom -> implementation platform(bom) }
-	implementation libs_compose.values()
+	implementation(libs.androidx.activity.ktx)
+	implementation(libs.androidx.lifecycle.common.java8)
+	implementation(libs.androidx.lifecycle.runtime.ktx)
+	implementation(libs.androidx.lifecycle.viewmodel.ktx)
+	implementation(libs.androidx.lifecycle.viewmodel.savedstate)
 
-	implementation libs_logging.values()
-	implementation libs_image.values()
-	implementation libs_kotlin.values()
+	implementation(libs.hilt.android)
 
-	implementation libs_di.values()
-	implementation libs_networking.values()
-	ksp annotation_processors.values()
-	implementation libs_navigation.values()
+	//TODO: Replace with serialization if possible
+	implementation(libs.gson)
+
+//	ksp("androidx.lifecycle:lifecycle-compiler:2.9.2") TODO: remove deprecations
+	ksp(libs.hilt.android.compiler)
+
+	// Compose (ref: https://developer.android.com/jetpack/compose/bom/bom-mapping)
+	implementation platform(libs.androidx.compose.bom)
+	implementation platform(libs.kotlin.bom)
+	//https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-bom
+	implementation platform(libs.kotlinx.coroutines.bom)
+
+	implementation(libs.androidx.navigation.compose)
+	implementation(libs.androidx.navigation.ui.ktx)
+	implementation(libs.androidx.hilt.navigation.compose)
+
+	implementation(libs.androidx.foundation)
+	implementation(libs.androidx.foundation.layout)
+	implementation(libs.androidx.material3)
+	implementation(libs.androidx.runtime)
+	implementation(libs.androidx.runtime.livedata)
+	implementation(libs.androidx.ui)
+	implementation(libs.androidx.ui.tooling)
+	implementation(libs.androidx.ui.tooling.preview)
+	implementation(libs.androidx.ui.tooling.data)
+	implementation(libs.androidx.ui.viewbinding)
+	implementation(libs.androidx.animation)
+	implementation(libs.androidx.animation.core)
+	implementation(libs.androidx.animation.graphics)
+	implementation(libs.androidx.constraintlayout.compose)
+
+	implementation(libs.retrofit)
+	implementation(libs.converter.gson)
+	implementation(libs.logging.interceptor)
+	implementation(libs.okhttp)
+
+	implementation(libs.timber)
+
+	implementation(libs.coil.compose)
+	implementation(libs.coil.gif)
+	implementation(libs.androidx.media3.ui)
+	implementation(libs.androidx.media3.exoplayer)
+
+	implementation(libs.kotlin.stdlib.jdk8)
+	implementation(libs.kotlinx.coroutines.android)
+	implementation(libs.kotlinx.collections.immutable)
+	implementation(libs.kotlinx.serialization.json)
 }
