@@ -51,7 +51,7 @@ class CharacterListingViewModel @AssistedInject constructor(
                     fetchCharacterUseCase.fetch(characterIds)
 
             if (response !is DomainResponse.Success) {
-                response.handleErrorResponse()
+                handleErrorResponse()
                 return@launch
             }
 
@@ -84,7 +84,7 @@ class CharacterListingViewModel @AssistedInject constructor(
     }
 
 
-    private suspend fun DomainResponse<CharactersResponse>.handleErrorResponse() {
+    private suspend fun handleErrorResponse() {
         updateInMain(dispatchers) { uiState.state = State.Error }
     }
 

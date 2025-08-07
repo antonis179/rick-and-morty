@@ -27,10 +27,6 @@ object DefaultNetworkConfigFactory {
         )
     }
 
-    /**
-     * Provides the default [OkhttpOptions] for the network client
-     */
-    @JvmStatic
     fun defaultOkhttpOptions(
         logEnabled: Boolean
     ): OkhttpOptions {
@@ -51,14 +47,11 @@ object DefaultNetworkConfigFactory {
         )
     }
 
-    /**
-     * Provides the default [Gson] implementation used for network in the app
-     */
-    fun makeDefaultGson(): Gson {
+    private fun makeDefaultGson(): Gson {
         return GsonBuilder()
             .create()
     }
 
-    fun makeDefaultInterceptors(): List<InterceptorWithType> = listOf()
+    private fun makeDefaultInterceptors(): List<InterceptorWithType> = listOf()
 
 }

@@ -9,7 +9,6 @@ import com.amoustakos.rickandmorty.navigation.workaround.ScreenDummyNavigator
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.serialization.Serializable
 import javax.inject.Inject
-import kotlin.collections.forEach
 
 
 @ActivityScoped
@@ -19,7 +18,7 @@ class CharacterFeatureNavigator @Inject constructor(
     private val screenDummyNavigator: ScreenDummyNavigator
 ) : FeatureNavigator {
 
-    val screens: List<ScreenNavigator> = listOf(
+    private val screens: List<ScreenNavigator> = listOf(
         screenDummyNavigator,
         characterListingScreenNavigator,
         characterDetailsScreenNavigator

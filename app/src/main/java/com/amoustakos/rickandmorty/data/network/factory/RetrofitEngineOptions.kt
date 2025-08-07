@@ -4,9 +4,6 @@ import androidx.annotation.Keep
 import retrofit2.CallAdapter
 import retrofit2.Converter
 
-/**
- * Data class used to define options for Retrofit engine creation
- */
 @Keep
 data class RetrofitEngineOptions(
     val baseUrl: String,

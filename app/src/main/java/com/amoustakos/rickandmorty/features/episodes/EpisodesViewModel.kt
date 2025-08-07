@@ -35,7 +35,7 @@ class EpisodesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState = EpisodesUiState(onPaginate = this::fetch)
-    val characterMappings = mutableMapOf<EpisodeId, List<String>>()
+    private val characterMappings = mutableMapOf<EpisodeId, List<String>>()
 
     init {
         fetch()
@@ -65,7 +65,7 @@ class EpisodesViewModel @Inject constructor(
                 if (!uiState.state.isDataState()) {
                     uiState.state = State.Data()
                 }
-                var dataState = uiState.state as State.Data
+                val dataState = uiState.state as State.Data
 
                 dataState.apply {
                     this.nextPage = nextPage
@@ -77,7 +77,7 @@ class EpisodesViewModel @Inject constructor(
         }
     }
 
-    fun storeCharacterMappings(model: EpisodesResponse) {
+    private fun storeCharacterMappings(model: EpisodesResponse) {
         model.episodes.forEach { episode ->
             characterMappings[episode.id] = episode.characters.mapNotNull { id ->
                 runCatching {

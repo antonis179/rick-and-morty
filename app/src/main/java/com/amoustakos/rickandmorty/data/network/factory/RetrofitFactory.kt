@@ -1,5 +1,7 @@
 package com.amoustakos.rickandmorty.data.network.factory
 
+import com.amoustakos.rickandmorty.data.network.factory.InterceptorWithType.Interceptor
+import com.amoustakos.rickandmorty.data.network.factory.InterceptorWithType.NetworkInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -7,17 +9,8 @@ import retrofit2.Retrofit
 import java.io.File
 
 
-/**
- * Factory class that provides [Retrofit], [OkHttpClient] instances.
- *
- * All options are routed through [RetrofitEngineOptions] and [OkhttpOptions] respectively.
- */
 object RetrofitFactory {
 
-    /**
-     * Creates a [Retrofit] instance based on the provided [RetrofitEngineOptions].
-     */
-    @JvmStatic
     fun makeRetrofitEngine(okHttpClient: OkHttpClient, opts: RetrofitEngineOptions): Retrofit {
         val builder = Retrofit.Builder()
             .baseUrl(opts.baseUrl)
@@ -31,11 +24,6 @@ object RetrofitFactory {
         return builder.build()
     }
 
-    /**
-     * Creates an [OkHttpClient] based on the provided [OkhttpOptions].
-     * Also see: [setupCache], [setupInterceptors], [setupLogging], [setupTimeouts]
-     */
-    @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun makeHttpClient(
         opts: OkhttpOptions,
@@ -59,24 +47,15 @@ object RetrofitFactory {
         return client.build()
     }
 
-
-    /**
-     * Sets up the interceptors
-     */
-    @Throws(IllegalArgumentException::class)
     private fun OkHttpClient.Builder.setupInterceptors(opts: OkhttpOptions) {
         opts.interceptors?.forEach {
-            when {
-                it.isInterceptor() -> addInterceptor(it.interceptor)
-                it.isNetworkInterceptor() -> addNetworkInterceptor(it.interceptor)
-                else -> throw IllegalArgumentException("Interceptor invalid: $it")
+            when(it) {
+                is Interceptor -> addInterceptor(it.interceptor)
+                is NetworkInterceptor -> addNetworkInterceptor(it.interceptor)
             }
         }
     }
 
-    /**
-     * Sets up the logging behaviour
-     */
     private fun OkHttpClient.Builder.setupLogging(opts: OkhttpOptions) {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = when {
@@ -88,18 +67,12 @@ object RetrofitFactory {
         addInterceptor(loggingInterceptor)
     }
 
-    /**
-     * Sets up the timeouts (read, write, connect)
-     */
     private fun OkHttpClient.Builder.setupTimeouts(opts: OkhttpOptions) {
         connectTimeout(opts.connectTimeout, opts.timeUnit)
         readTimeout(opts.readTimeout, opts.timeUnit)
         writeTimeout(opts.writeTimeout, opts.timeUnit)
     }
 
-    /**
-     * Sets up the caching behaviour
-     */
     private fun OkHttpClient.Builder.setupCache(opts: OkhttpOptions) {
         val cacheOptionsValid = opts.cacheSizeMb?.let { it > 0L } == true &&
                 opts.cacheDir != null &&
@@ -107,10 +80,10 @@ object RetrofitFactory {
 
         if (!cacheOptionsValid) return
 
-        val cacheSize: Long = opts.cacheSizeMb
+        val cacheSize: Long = opts.cacheSizeMb ?: 0L
         cache(
             Cache(
-                File(opts.cacheDir, opts.cacheSubDirectory),
+                File(opts.cacheDir, opts.cacheSubDirectory ?: ""),
                 cacheSize
             )
         )
